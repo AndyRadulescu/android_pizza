@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".RegisterActivity"
+    tools:showIn="@layout/activity_register">
+
+    <LinearLayout
+        style="@style/layoutMargins"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <!--<EditText-->
+        <!--android:id="@+id/email"-->
+        <!--style="@style/bodyText"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:ems="10"-->
+        <!--android:inputType="textEmailAddress"-->
+        <!--android:text="@string/email" />-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/editText7"-->
+        <!--style="@style/bodyText"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:ems="10"-->
+        <!--android:inputType="phone"-->
+        <!--android:text="@string/phone" />-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/password"-->
+        <!--style="@style/bodyText"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:ems="10"-->
+        <!--android:inputType="textPassword"-->
+        <!--android:text="@string/password" />-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/confirmPassword"-->
+        <!--style="@style/bodyText"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:ems="10"-->
+        <!--android:inputType="textPassword"-->
+        <!--android:text="@string/confirmPassword" />-->
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

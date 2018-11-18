@@ -12,5 +12,10 @@
             android:id="@+id/contact_us"
             android:icon="@drawable/contact"
             android:title="@string/contact_us" />
+
+        <item
+            android:id="@+id/register"
+            android:icon="@drawable/register"
+            android:title="@string/register" />
     </group>
 </menu>

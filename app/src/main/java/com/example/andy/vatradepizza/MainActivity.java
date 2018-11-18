@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -74,6 +73,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.contact_us) {
             Intent intent = new Intent(this, ContactUsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.register) {
+            Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
         }
 

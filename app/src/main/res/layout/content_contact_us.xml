@@ -8,4 +8,15 @@
     tools:context=".ContactUsActivity"
     tools:showIn="@layout/activity_contact_us">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:text="@string/contact_us"
+        android:textColor="#000"
+        android:textSize="24sp" />
+
 </android.support.constraint.ConstraintLayout>

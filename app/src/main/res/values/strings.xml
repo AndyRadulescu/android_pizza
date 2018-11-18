@@ -13,4 +13,11 @@
     <string name="shopping_cart">Cos de cumparaturi</string>
     <string name="title_activity_shopping_cart">ShoppingCartActivity</string>
     <string name="title_activity_contact_us">ContactUsActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="name">Numele Complet</string>
+    <string name="confirmPassword">Rescrie parola</string>
+    <string name="password">Parola</string>
+    <string name="phone">Telefon</string>
+    <string name="email">Email</string>
+    <string name="register">Inregistreaza-te</string>
 </resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+
+    <style name="layoutMargins">
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingRight">30dp</item>
+    </style>
+
+    <style name="elementMargin">
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
+
+    <style name="bodyText" parent="elementMargin">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="titleText">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#000</item>
+    </style>
+</resources>

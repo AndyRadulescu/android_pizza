@@ -8,61 +8,99 @@
     tools:context=".RegisterActivity"
     tools:showIn="@layout/activity_register">
 
-    <LinearLayout
-        style="@style/layoutMargins"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/name_et"
+        <LinearLayout
+            style="@style/layoutMargins"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:autofillHints="@string/name"
-            android:ems="10"
-            android:hint="@string/name"
-            android:inputType="text"
-            tools:ignore="UnusedAttribute" />
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
-        <!--<EditText-->
-        <!--android:id="@+id/email"-->
-        <!--style="@style/bodyText"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:ems="10"-->
-        <!--android:inputType="textEmailAddress"-->
-        <!--android:text="@string/email" />-->
+            <TextView
+                style="@style/bodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:labelFor="@+id/et_name"
+                android:text="@string/name" />
 
-        <!--<EditText-->
-        <!--android:id="@+id/editText7"-->
-        <!--style="@style/bodyText"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:ems="10"-->
-        <!--android:inputType="phone"-->
-        <!--android:text="@string/phone" />-->
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="14sp" />
 
-        <!--<EditText-->
-        <!--android:id="@+id/password"-->
-        <!--style="@style/bodyText"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:ems="10"-->
-        <!--android:inputType="textPassword"-->
-        <!--android:text="@string/password" />-->
+            <TextView
+                style="@style/bodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:labelFor="@+id/et_email"
+                android:text="@string/email" />
 
-        <!--<EditText-->
-        <!--android:id="@+id/confirmPassword"-->
-        <!--style="@style/bodyText"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:ems="10"-->
-        <!--android:inputType="textPassword"-->
-        <!--android:text="@string/confirmPassword" />-->
-    </LinearLayout>
+            <EditText
+                android:id="@+id/et_email"
+                style="@style/bodyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:textSize="14sp" />
+
+            <TextView
+                style="@style/bodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:labelFor="@+id/et_phone"
+                android:text="@string/phone" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                style="@style/bodyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="phone"
+                android:textSize="14sp" />
+
+            <TextView
+                style="@style/bodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:labelFor="@+id/et_password"
+                android:text="@string/password" />
+
+            <EditText
+                android:id="@+id/et_password"
+                style="@style/bodyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:textSize="14sp" />
+
+            <TextView
+                style="@style/bodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:labelFor="@+id/et_confirmPassword"
+                android:text="@string/confirmPassword" />
+
+            <EditText
+                android:id="@+id/et_confirmPassword"
+                style="@style/bodyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword" />
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

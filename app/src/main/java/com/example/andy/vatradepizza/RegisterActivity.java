@@ -6,13 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.andy.vatradepizza.businessLogic.RegisterFunctionality;
 
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText etName;
+    RegisterFunctionality registerFunctionality;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +28,10 @@ public class RegisterActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayOptions(R.drawable.ic_menu_manage);
 
-        etName = findViewById(R.id.plain_text_input);
+
+        registerFunctionality = new RegisterFunctionality((EditText) findViewById(R.id.et_name),
+                (EditText) findViewById(R.id.et_email), (EditText) findViewById(R.id.et_phone),
+                (EditText) findViewById(R.id.et_password), (EditText) findViewById(R.id.et_confirmPassword));
     }
 
     @Override
@@ -47,5 +54,30 @@ public class RegisterActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void onConfirm(View view) {
+        if (!registerFunctionality.verifyFormIntegrity()) {
+            Toast.makeText(this, "Compleateaza toate campurile", Toast.LENGTH_SHORT).show();
+        } else {
+            if (!registerFunctionality.verifyPasswordSimilarity()) {
+                Toast.makeText(this, "Parolele nu se potrivesc", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!registerFunctionality.verifyEmailFormat()) {
+                Toast.makeText(this, "Formatul e-mail incorect", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!registerFunctionality.verifyPasswordLength()) {
+                Toast.makeText(this, "Parola prea scurta!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!registerFunctionality.verifyPhoneLength()) {
+                Toast.makeText(this, "Telefon prea scurt!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Toast.makeText(this, "Inregistrare cu suces!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 }

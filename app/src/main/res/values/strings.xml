@@ -16,8 +16,10 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="name">Numele Complet</string>
     <string name="confirmPassword">Rescrie parola</string>
-    <string name="password">Parola</string>
+    <string name="password">Parola min 6 caractere</string>
     <string name="phone">Telefon</string>
     <string name="email">Email</string>
     <string name="register">Inregistreaza-te</string>
+    <string name="confirm">Confirma</string>
+    <string name="password_hint">minim 6 caractere</string>
 </resources>

@@ -22,4 +22,7 @@
     <string name="register">Inregistreaza-te</string>
     <string name="confirm">Confirma</string>
     <string name="password_hint">minim 6 caractere</string>
+    <string name="trimite_messaj">Trimite messaj</string>
+    <string name="suna_ne">Suna-ne</string>
+    <string name="message">mesaj</string>
 </resources>

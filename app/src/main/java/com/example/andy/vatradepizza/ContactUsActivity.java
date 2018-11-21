@@ -1,6 +1,7 @@
 package com.example.andy.vatradepizza;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
@@ -76,7 +77,8 @@ public class ContactUsActivity extends AppCompatActivity {
     }
 
     public void onCall(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:0746981103"));
+        startActivity(intent);
     }
 }

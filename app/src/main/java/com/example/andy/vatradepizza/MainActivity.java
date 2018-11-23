@@ -11,11 +11,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.HorizontalScrollView;
+import android.widget.RelativeLayout;
 
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    HorizontalScrollView menuScroll;
+    RelativeLayout relativeMenuOffer;
+    RelativeLayout relativeMenuItem1;
+    RelativeLayout relativeMenuItem2;
+    RelativeLayout relativeMenuItem3;
+    RelativeLayout relativeMenuItem4;
+    RelativeLayout relativeMenuItem5;
+    RelativeLayout relativeMenuItem6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +45,18 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        menuScroll = findViewById(R.id.menu_scroll);
+
+        relativeMenuOffer = findViewById(R.id.relativeOffer);
+        relativeMenuItem1 = findViewById(R.id.relative);
+        relativeMenuItem2 = findViewById(R.id.relative2);
+        relativeMenuItem3 = findViewById(R.id.relative3);
+        relativeMenuItem4 = findViewById(R.id.relative4);
+        relativeMenuItem5 = findViewById(R.id.relative5);
+        relativeMenuItem6 = findViewById(R.id.relative6);
+
+        makeOnClickOnTheMenuScroll();
     }
 
     @Override
@@ -82,5 +106,19 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private final void focusOnView(final RelativeLayout relativeLayout) {
+        menuScroll.post(() -> menuScroll.scrollTo(relativeLayout.getLeft(), 0));
+    }
+
+    private void makeOnClickOnTheMenuScroll() {
+        relativeMenuOffer.setOnClickListener((e) -> focusOnView(relativeMenuOffer));
+        relativeMenuItem1.setOnClickListener((e) -> focusOnView(relativeMenuItem1));
+        relativeMenuItem2.setOnClickListener((e) -> focusOnView(relativeMenuItem2));
+        relativeMenuItem3.setOnClickListener((e) -> focusOnView(relativeMenuItem3));
+        relativeMenuItem4.setOnClickListener((e) -> focusOnView(relativeMenuItem4));
+        relativeMenuItem5.setOnClickListener((e) -> focusOnView(relativeMenuItem5));
+        relativeMenuItem6.setOnClickListener((e) -> focusOnView(relativeMenuItem6));
     }
 }

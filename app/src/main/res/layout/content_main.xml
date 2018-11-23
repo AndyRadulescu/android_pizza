@@ -11,6 +11,7 @@
     tools:showIn="@layout/app_bar_main">
 
     <HorizontalScrollView
+        android:id="@+id/menu_scroll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
@@ -22,10 +23,47 @@
             android:orientation="horizontal">
 
             <RelativeLayout
+                android:id="@+id/relativeOffer"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/imageOffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/offer"
+                    android:minWidth="40dp"
+                    android:minHeight="40dp"
+                    android:src="@drawable/ic_favorites" />
+
+                <TextView
+                    android:id="@+id/textOffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imageOffer"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@string/offer"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:id="@+id/relative"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/imageLabel"
@@ -57,7 +95,9 @@
                 android:id="@+id/relative2"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/imagelabel2"
@@ -89,7 +129,9 @@
                 android:id="@+id/relative3"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/imagelabel3"
@@ -119,7 +161,9 @@
                 android:id="@+id/relative4"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/imagelabel4"
@@ -149,7 +193,9 @@
                 android:id="@+id/relative5"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/imagelabel5"
@@ -179,7 +225,9 @@
                 android:id="@+id/relative6"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/imagelabel6"

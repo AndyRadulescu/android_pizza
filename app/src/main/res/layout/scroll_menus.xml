@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_scroll"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:paddingTop="10dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/relativeOffer"
+            style="@style/relative_layout_style">
+
+            <ImageView
+                android:id="@+id/imageOffer"
+                style="@style/image_in_scroll"
+                android:contentDescription="@string/offer"
+                android:src="@drawable/ic_favorites" />
+
+            <TextView
+                android:id="@+id/textOffer"
+                style="@style/text_scroll"
+                android:layout_below="@id/imageOffer"
+                android:text="@string/offer" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative"
+            style="@style/relative_layout_style">
+
+            <ImageView
+                android:id="@+id/imageLabel"
+                style="@style/image_in_scroll"
+                android:contentDescription="@string/pizza"
+                android:src="@drawable/ic_pizza" />
+
+            <TextView
+                android:id="@+id/textLabel"
+                style="@style/text_scroll"
+                android:layout_below="@id/imageLabel"
+                android:text="@string/pizza" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative2"
+            style="@style/relative_layout_style">
+
+            <ImageView
+                android:id="@+id/imagelabel2"
+                style="@style/image_in_scroll"
+                android:contentDescription="@string/pasta"
+                android:src="@drawable/ic_pasta" />
+
+            <TextView
+                android:id="@+id/textlabel2"
+                style="@style/text_scroll"
+                android:layout_below="@id/imagelabel2"
+                android:text="@string/pasta" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative3"
+            style="@style/relative_layout_style">
+
+            <ImageView
+                android:id="@+id/imagelabel3"
+                style="@style/image_in_scroll"
+                android:contentDescription="@string/salad"
+                android:src="@drawable/ic_salad" />
+
+            <TextView
+                android:id="@+id/textlabel3"
+                style="@style/text_scroll"
+                android:layout_below="@id/imagelabel3"
+                android:text="@string/salad" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative5"
+            style="@style/relative_layout_style">
+
+            <ImageView
+                android:id="@+id/imagelabel5"
+                style="@style/image_in_scroll"
+                android:contentDescription="@string/pizza"
+                android:src="@drawable/ic_souce" />
+
+            <TextView
+                android:id="@+id/textlabel5"
+                style="@style/text_scroll"
+                android:layout_below="@id/imagelabel5"
+                android:text="@string/souce" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative4"
+            style="@style/relative_layout_style">
+
+            <ImageView
+                android:id="@+id/imagelabel4"
+                style="@style/image_in_scroll"
+                android:contentDescription="@string/pizza"
+                android:src="@drawable/juice" />
+
+            <TextView
+                android:id="@+id/textlabel4"
+                style="@style/text_scroll"
+                android:layout_below="@id/imagelabel4"
+                android:text="@string/Juice" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative6"
+            style="@style/relative_layout_style">
+
+            <ImageView
+                android:id="@+id/imagelabel6"
+                style="@style/image_in_scroll"
+                android:contentDescription="@string/pizza"
+                android:src="@drawable/ice_cream" />
+
+            <TextView
+                android:id="@+id/textlabel6"
+                android:layout_below="@id/imagelabel6"
+                android:text="@string/sweets"
+                style="@style/text_scroll" />
+        </RelativeLayout>
+    </LinearLayout>
+</HorizontalScrollView>

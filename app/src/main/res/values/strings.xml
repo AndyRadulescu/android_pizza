@@ -27,4 +27,9 @@
     <string name="message">mesaj</string>
     <string name="pizza">Pizza</string>
     <string name="offer">Oferte</string>
+    <string name="sweets">Desert</string>
+    <string name="salad">Salata</string>
+    <string name="pasta">Paste</string>
+    <string name="souce">Sosuri</string>
+    <string name="Juice">Sucuri</string>
 </resources>

@@ -32,4 +32,7 @@
     <string name="pasta">Paste</string>
     <string name="souce">Sosuri</string>
     <string name="Juice">Sucuri</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

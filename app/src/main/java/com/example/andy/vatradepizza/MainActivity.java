@@ -1,24 +1,31 @@
 package com.example.andy.vatradepizza;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
+
+import com.example.andy.vatradepizza.menuFragments.OfferFragment;
+import com.example.andy.vatradepizza.menuFragments.PizzaFragment;
 
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OfferFragment.OnFragmentInteractionListener, PizzaFragment.OnFragmentInteractionListener {
 
     HorizontalScrollView menuScroll;
     RelativeLayout relativeMenuOffer;
@@ -28,6 +35,9 @@ public class MainActivity extends AppCompatActivity
     RelativeLayout relativeMenuItem4;
     RelativeLayout relativeMenuItem5;
     RelativeLayout relativeMenuItem6;
+
+    FragmentManager manager;
+    FragmentTransaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +67,13 @@ public class MainActivity extends AppCompatActivity
         relativeMenuItem6 = findViewById(R.id.relative6);
 
         makeOnClickOnTheMenuScroll();
+
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        OfferFragment offerFragment = new OfferFragment();
+
+        transaction.add(R.id.fragment_placeholder, offerFragment);
+        transaction.commit();
     }
 
     @Override
@@ -112,13 +129,35 @@ public class MainActivity extends AppCompatActivity
         menuScroll.post(() -> menuScroll.scrollTo(relativeLayout.getLeft(), 0));
     }
 
+    private void changeFragment(Fragment replaceFragment) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_placeholder);
+        if ((fragment != null ? fragment.getClass() : null) == replaceFragment.getClass()) {
+            return;
+        }
+        Log.d("debug", "entered so far");
+        transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragment_placeholder, replaceFragment, "fragment");
+        transaction.commit();
+    }
+
     private void makeOnClickOnTheMenuScroll() {
-        relativeMenuOffer.setOnClickListener((e) -> focusOnView(relativeMenuOffer));
-        relativeMenuItem1.setOnClickListener((e) -> focusOnView(relativeMenuItem1));
+        relativeMenuOffer.setOnClickListener((e) -> {
+            focusOnView(relativeMenuOffer);
+            changeFragment(new OfferFragment());
+        });
+        relativeMenuItem1.setOnClickListener((e) -> {
+            focusOnView(relativeMenuItem1);
+            changeFragment(new PizzaFragment());
+        });
         relativeMenuItem2.setOnClickListener((e) -> focusOnView(relativeMenuItem2));
         relativeMenuItem3.setOnClickListener((e) -> focusOnView(relativeMenuItem3));
         relativeMenuItem4.setOnClickListener((e) -> focusOnView(relativeMenuItem4));
         relativeMenuItem5.setOnClickListener((e) -> focusOnView(relativeMenuItem5));
         relativeMenuItem6.setOnClickListener((e) -> focusOnView(relativeMenuItem6));
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

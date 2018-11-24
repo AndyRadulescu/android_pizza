@@ -14,7 +14,7 @@
         android:id="@+id/menu_scroll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:paddingTop="10dp">
 
         <LinearLayout
@@ -158,38 +158,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/relative4"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:id="@+id/imagelabel4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:contentDescription="@string/pizza"
-                    android:minWidth="40dp"
-                    android:minHeight="40dp"
-                    android:src="@drawable/ic_cola" />
-
-                <TextView
-                    android:id="@+id/textlabel4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/imagelabel4"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="Sucuri"
-                    android:textColor="#fff"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/relative5"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
@@ -222,6 +190,38 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/relative4"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/imagelabel4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/pizza"
+                    android:minWidth="40dp"
+                    android:minHeight="40dp"
+                    android:src="@drawable/juice" />
+
+                <TextView
+                    android:id="@+id/textlabel4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imagelabel4"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="Sucuri"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/relative6"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
@@ -238,7 +238,7 @@
                     android:contentDescription="@string/pizza"
                     android:minWidth="40dp"
                     android:minHeight="40dp"
-                    android:src="@drawable/ic_cupcake" />
+                    android:src="@drawable/ice_cream" />
 
                 <TextView
                     android:id="@+id/textlabel6"

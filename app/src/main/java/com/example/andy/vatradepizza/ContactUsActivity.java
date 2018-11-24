@@ -32,8 +32,8 @@ public class ContactUsActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayOptions(R.drawable.ic_menu_manage);
 
-        contactFunctionality = new ContactInfoForm((EditText) findViewById(R.id.et_name),
-                (EditText) findViewById(R.id.et_email), (EditText) findViewById(R.id.et_phone));
+        contactFunctionality = new ContactInfoForm(findViewById(R.id.et_name),
+                findViewById(R.id.et_email), findViewById(R.id.et_phone));
     }
 
     @Override

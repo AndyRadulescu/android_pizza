@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -64,5 +65,9 @@ public class MenuPizzaActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void addToCart(View view) {
+        Toast.makeText(this, "adaugat in cos", Toast.LENGTH_SHORT).show();
     }
 }

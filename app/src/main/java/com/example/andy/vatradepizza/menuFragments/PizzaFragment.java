@@ -35,7 +35,7 @@ public class PizzaFragment extends Fragment {
         listMenuItems = rootView.findViewById(R.id.list_menu_items);
         for (int i = 0; i < listMenuItems.getChildCount(); i++) {
             LinearLayout item = (LinearLayout) listMenuItems.getChildAt(i);
-            int imageId = Integer.parseInt(String.valueOf(item.getChildAt(0).getTag()));
+            int imageId = item.getChildAt(0).getId();
             LinearLayout aux = (LinearLayout) item.getChildAt(1);
             TextView pizzaName = (TextView) aux.getChildAt(0);
             TextView pizzaDescription = (TextView) aux.getChildAt(1);

@@ -35,8 +35,8 @@ public class MenuPizzaActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             imageView.setImageResource(bundle.getInt("resId"));
-            pizzaName.setText(bundle.getInt("pizzaName"));
-            pizzaDescription.setText(bundle.getInt("pizzaDescription"));
+            pizzaName.setText(bundle.getString("pizzaName"));
+            pizzaDescription.setText(bundle.getString("pizzaDescription"));
         }
     }
 }

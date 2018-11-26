@@ -51,7 +51,6 @@ public class PizzaFragment extends Fragment {
             TextView pizzaName = (TextView) aux.getChildAt(0);
             TextView pizzaDescription = (TextView) aux.getChildAt(1);
             item.setOnClickListener(v -> {
-//                Perform action on click
                 Toast.makeText(getContext(), imageId + pizzaName.getText().toString() + pizzaDescription.getText().toString(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), MenuPizzaActivity.class);
                 intent.putExtra("resId", imageId);

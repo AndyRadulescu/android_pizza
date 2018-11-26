@@ -2,8 +2,6 @@ package com.example.andy.vatradepizza;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,16 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.Objects;
 
 public class MenuPizzaActivity extends AppCompatActivity {
 
     private ImageView imageView;
-    private TextView pizzaName, pizzaDescription, tvWhiteSouce, tvRedSouce, tvWhiteSouceSpicy, tvRedSouceSpicy;
+    private TextView pizzaName, pizzaDescription, tvWhiteSouce, tvRedSouce, tvWhiteSouceSpicy, tvRedSouceSpicy, pizzaTotalPrice;
     private ImageButton ibWhiteSouceMinus, ibWhiteSoucePlus, ibWhiteSouceSpicyMinus, ibWhiteSouceSpicyPlus, ibRedSouceSpicyMinus, ibRedSouceSpicyPlus, ibRedSouceMinus, ibRedSoucePlus;
-    int whiteSouceValue, redSouceValue, whiteSouceValueSpicy, getRedSouceValueSpicy;
+    double totalPriceAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +34,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
         imageView = findViewById(R.id.pizza_image);
         pizzaName = findViewById(R.id.pizza_name);
         pizzaDescription = findViewById(R.id.pizza_description);
-
-        whiteSouceValue = 1;
-        redSouceValue = 1;
-        whiteSouceValueSpicy = 1;
-        getRedSouceValueSpicy = 1;
+        pizzaTotalPrice = findViewById(R.id.pizza_price);
 
         ibWhiteSouceMinus = findViewById(R.id.ib_sos_alb_minus);
         ibWhiteSoucePlus = findViewById(R.id.ib_sos_alb_plus);
@@ -54,13 +46,16 @@ public class MenuPizzaActivity extends AppCompatActivity {
         ibRedSoucePlus = findViewById(R.id.ib_sos_rosu_plus);
 
         tvWhiteSouce = findViewById(R.id.tf_sos_alb);
-        tvWhiteSouce.setText(String.valueOf(whiteSouceValue));
-        tvRedSouce = findViewById(R.id.tf_sos_alb_picant);
-        tvRedSouce.setText(String.valueOf(redSouceValue));
-        tvWhiteSouceSpicy = findViewById(R.id.tf_sos_rosu);
-        tvWhiteSouceSpicy.setText(String.valueOf(whiteSouceValueSpicy));
+        tvWhiteSouce.setText("0");
+
+        tvWhiteSouceSpicy = findViewById(R.id.tf_sos_alb_picant);
+        tvWhiteSouceSpicy.setText("0");
+
+        tvRedSouce = findViewById(R.id.tf_sos_rosu);
+        tvRedSouce.setText("0");
+
         tvRedSouceSpicy = findViewById(R.id.tf_sos_rosu_picant);
-        tvRedSouceSpicy.setText(String.valueOf(getRedSouceValueSpicy));
+        tvRedSouceSpicy.setText("0");
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -68,6 +63,8 @@ public class MenuPizzaActivity extends AppCompatActivity {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             pizzaName.setText(bundle.getString("pizzaName"));
             pizzaDescription.setText(bundle.getString("pizzaDescription"));
+            pizzaTotalPrice.setText(bundle.getString("pizzaPrice"));
+            totalPriceAmount = Double.parseDouble(pizzaTotalPrice.getText().toString().split(" ")[0].trim());
         }
         createOnMinusClickListener();
     }
@@ -99,32 +96,41 @@ public class MenuPizzaActivity extends AppCompatActivity {
     }
 
     private void createOnMinusClickListener() {
-        ibWhiteSouceMinus.setOnClickListener(e -> minusButtonClicked(tvWhiteSouce, whiteSouceValue));
-        ibWhiteSouceSpicyMinus.setOnClickListener(e -> minusButtonClicked(tvWhiteSouceSpicy, whiteSouceValueSpicy));
-        ibRedSouceSpicyMinus.setOnClickListener(e -> minusButtonClicked(tvRedSouce, redSouceValue));
-        ibRedSouceMinus.setOnClickListener(e -> minusButtonClicked(tvRedSouceSpicy, getRedSouceValueSpicy));
+        ibWhiteSouceMinus.setOnClickListener(e -> minusButtonClicked(tvWhiteSouce));
+        ibWhiteSouceSpicyMinus.setOnClickListener(e -> minusButtonClicked(tvWhiteSouceSpicy));
+        ibRedSouceMinus.setOnClickListener(e -> minusButtonClicked(tvRedSouce));
+        ibRedSouceSpicyMinus.setOnClickListener(e -> minusButtonClicked(tvRedSouceSpicy));
 
-        ibWhiteSoucePlus.setOnClickListener(e -> plusButtonClicked(tvWhiteSouce, whiteSouceValue));
-        ibWhiteSouceSpicyPlus.setOnClickListener(e -> plusButtonClicked(tvWhiteSouceSpicy, whiteSouceValueSpicy));
-        ibRedSouceSpicyPlus.setOnClickListener(e -> plusButtonClicked(tvRedSouce, redSouceValue));
-        ibRedSoucePlus.setOnClickListener(e -> plusButtonClicked(tvRedSouceSpicy, getRedSouceValueSpicy));
+        ibWhiteSoucePlus.setOnClickListener(e -> plusButtonClicked(tvWhiteSouce));
+        ibWhiteSouceSpicyPlus.setOnClickListener(e -> plusButtonClicked(tvWhiteSouceSpicy));
+        ibRedSoucePlus.setOnClickListener(e -> plusButtonClicked(tvRedSouce));
+        ibRedSouceSpicyPlus.setOnClickListener(e -> plusButtonClicked(tvRedSouceSpicy));
     }
 
-    private void minusButtonClicked(TextView tvCount, int whiteSouceValue) {
-        if (whiteSouceValue <= 1) {
+    private void minusButtonClicked(TextView tvCount) {
+        int valueCount = Integer.parseInt(tvCount.getText().toString());
+
+        if (valueCount <= 0) {
             return;
         } else {
-            whiteSouceValue--;
+            valueCount--;
         }
-        tvCount.setText(String.valueOf(whiteSouceValue));
+        totalPriceAmount -= 3;
+        String newPrice = totalPriceAmount + " lei";
+        pizzaTotalPrice.setText(newPrice);
+        tvCount.setText(String.valueOf(valueCount));
     }
 
-    private void plusButtonClicked(TextView tvCount, int whiteSouceValue) {
-        if (whiteSouceValue >= 10) {
+    private void plusButtonClicked(TextView tvCount) {
+        int valueCount = Integer.parseInt(tvCount.getText().toString());
+        if (valueCount >= 10) {
             return;
         } else {
-            whiteSouceValue++;
+            valueCount++;
         }
-        tvCount.setText(String.valueOf(whiteSouceValue));
+        totalPriceAmount += 3;
+        String newPrice = totalPriceAmount + " lei";
+        pizzaTotalPrice.setText(newPrice);
+        tvCount.setText(String.valueOf(valueCount));
     }
 }

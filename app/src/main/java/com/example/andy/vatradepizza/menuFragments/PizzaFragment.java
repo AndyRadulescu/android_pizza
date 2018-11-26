@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.andy.vatradepizza.MenuPizzaActivity;
 import com.example.andy.vatradepizza.R;
@@ -50,12 +49,15 @@ public class PizzaFragment extends Fragment {
             LinearLayout aux = (LinearLayout) item.getChildAt(1);
             TextView pizzaName = (TextView) aux.getChildAt(0);
             TextView pizzaDescription = (TextView) aux.getChildAt(1);
+            LinearLayout aux2 = (LinearLayout) item.getChildAt(2);
+            TextView pizzaPrice = (TextView) aux2.getChildAt(0);
+
             item.setOnClickListener(v -> {
-                Toast.makeText(getContext(), imageId + pizzaName.getText().toString() + pizzaDescription.getText().toString(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), MenuPizzaActivity.class);
                 intent.putExtra("resId", imageId);
                 intent.putExtra("pizzaName", pizzaName.getText().toString());
                 intent.putExtra("pizzaDescription", pizzaDescription.getText().toString());
+                intent.putExtra("pizzaPrice", pizzaPrice.getText().toString());
                 startActivity(intent);
             });
         }

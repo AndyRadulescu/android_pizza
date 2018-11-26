@@ -38,4 +38,5 @@
     <string name="title_activity_menu_pizza">MenuPizzaActivity</string>
     <string name="minus">minus</string>
     <string name="plus">plus</string>
+    <string name="to_cart">Adauga in cos</string>
 </resources>

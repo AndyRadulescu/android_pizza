@@ -5,4 +5,11 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="pizza_menu_item">110dp</dimen>
+    <dimen name="margin_top_pizza_menu_item">5dp</dimen>
+    <dimen name="margin_start_pizza_menu_item">15dp</dimen>
+    <dimen name="info_item_width">180dp</dimen>
+    <dimen name="image_size">110dp</dimen>
+    <dimen name="info_item_margin_top">5dp</dimen>
 </resources>

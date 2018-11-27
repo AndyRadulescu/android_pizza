@@ -7,16 +7,21 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SouceModelHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "vatraDePizza.db";
-    private static final String TABLE_NAME = "souces";
+    private static final String TABLE_NAME = "souces_table";
     private static final String ID = "id";
     private static final String SOUCE_NAME = "souce_name";
     private static final String QUANTITY = "quantity";
+    private static final String FOREIGN_PIZZA_TABLE = "pizza_table";
+    private static final String FOREIGN_PIZZA_ID = "pizza_id";
+
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + SouceModelHelper.TABLE_NAME + " (" +
                     SouceModelHelper.ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     SouceModelHelper.SOUCE_NAME + " TEXT," +
-                    SouceModelHelper.QUANTITY + " INTEGER)";
+                    SouceModelHelper.QUANTITY + " INTEGER," +
+                    "FOREIGN KEY(" + SouceModelHelper.FOREIGN_PIZZA_ID + ") REFERENCES " +
+                    SouceModelHelper.FOREIGN_PIZZA_TABLE + "(" + SouceModelHelper.ID + "))";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + SouceModelHelper.TABLE_NAME;

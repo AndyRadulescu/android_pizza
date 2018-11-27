@@ -25,7 +25,7 @@ import com.example.andy.vatradepizza.menuFragments.PizzaFragment;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OfferFragment.OnFragmentInteractionListener, PizzaFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     HorizontalScrollView menuScroll;
     RelativeLayout relativeMenuOffer;
@@ -154,10 +154,5 @@ public class MainActivity extends AppCompatActivity
         relativeMenuItem4.setOnClickListener((e) -> focusOnView(relativeMenuItem4));
         relativeMenuItem5.setOnClickListener((e) -> focusOnView(relativeMenuItem5));
         relativeMenuItem6.setOnClickListener((e) -> focusOnView(relativeMenuItem6));
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

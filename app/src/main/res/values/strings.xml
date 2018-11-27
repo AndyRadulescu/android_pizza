@@ -39,4 +39,13 @@
     <string name="minus">minus</string>
     <string name="plus">plus</string>
     <string name="to_cart">Adauga in cos</string>
+    <string name="toppings">Topping-uri</string>
+    <string name="ham">Sunca</string>
+    <string name="salami">Salam</string>
+    <string name="pepper">Ardei</string>
+    <string name="corn">Porumb</string>
+    <string name="olives">Masline</string>
+    <string name="mushrooms">Ciuperci</string>
+    <string name="feta">Feta</string>
+    <string name="onion">Ceapa</string>
 </resources>

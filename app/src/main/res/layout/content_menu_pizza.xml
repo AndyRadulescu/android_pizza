@@ -13,7 +13,8 @@
     <ScrollView
         android:id="@+id/pizza_menu_info"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,13 +47,23 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="36dp"
                 android:text="TextView"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="10dp"
+                android:text="Sosuri"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
-                android:layout_marginTop="24dp"
                 android:layout_marginEnd="36dp"
                 android:background="@drawable/table_border"
                 android:paddingStart="5dp"
@@ -64,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sos alb (3.00 lei)"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -103,7 +114,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Sos alb picant (3.00 lei)"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -140,7 +151,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Sos rosu (3.00 lei)"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -178,7 +189,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Sos rosu picant (3.00 lei)"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -191,7 +202,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@null"
-                            android:src="@drawable/ic_minus" />
+                            android:src="@drawable/ic_minus"
+                            android:contentDescription="@string/minus" />
 
                         <TextView
                             android:id="@+id/tf_sos_rosu_picant"
@@ -205,14 +217,129 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@null"
-                            android:src="@drawable/ic_plus" />
+                            android:src="@drawable/ic_plus"
+                            android:contentDescription="@string/plus" />
                     </LinearLayout>
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/toppings"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/table_border"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp">
+
+                <TableRow
+                    style="@style/table_style"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ham"
+                        android:textSize="14sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_ham"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/salami"
+                        android:textSize="14sp" />
+
+                    <CheckBox android:id="@+id/checkbox_salami" />
+
+                </TableRow>
+
+
+                <TableRow style="@style/table_style">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pepper"
+                        android:textSize="14sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_pepper"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/corn"
+                        android:textSize="14sp" />
+
+                    <CheckBox android:id="@+id/checkbox_corn" />
+                </TableRow>
+
+                <TableRow style="@style/table_style">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/olives"
+                        android:textSize="14sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_olives"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mushrooms"
+                        android:textSize="14sp" />
+
+                    <CheckBox android:id="@+id/checkbox_mushrooms" />
+                </TableRow>
+
+                <TableRow style="@style/table_style">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/feta"
+                        android:textSize="14sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_feta"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/onion"
+                        android:textSize="14sp" />
+
+                    <CheckBox android:id="@+id/checkbox_ceapa" />
                 </TableRow>
             </TableLayout>
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/pizza_menu_info"

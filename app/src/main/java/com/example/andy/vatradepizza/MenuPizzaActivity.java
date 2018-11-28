@@ -12,6 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.andy.vatradepizza.model.helper.PizzaModelHelper;
+import com.example.andy.vatradepizza.model.helper.SouceModelHelper;
+import com.example.andy.vatradepizza.model.service.OrderPizzaService;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MenuPizzaActivity extends AppCompatActivity {
@@ -19,7 +24,12 @@ public class MenuPizzaActivity extends AppCompatActivity {
     private ImageView imageView;
     private TextView pizzaName, pizzaDescription, tvWhiteSouce, tvRedSouce, tvWhiteSouceSpicy, tvRedSouceSpicy, pizzaTotalPrice;
     private ImageButton ibWhiteSouceMinus, ibWhiteSoucePlus, ibWhiteSouceSpicyMinus, ibWhiteSouceSpicyPlus, ibRedSouceSpicyMinus, ibRedSouceSpicyPlus, ibRedSouceMinus, ibRedSoucePlus;
-    double totalPriceAmount;
+    private double totalPriceAmount;
+    private ArrayList<String> pizzaInfoArray;
+
+    private PizzaModelHelper mPizzaModel;
+    private SouceModelHelper mSouceModel;
+    private OrderPizzaService orderPizzaService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +67,19 @@ public class MenuPizzaActivity extends AppCompatActivity {
         tvRedSouceSpicy = findViewById(R.id.tf_sos_rosu_picant);
         tvRedSouceSpicy.setText("0");
 
+        mPizzaModel = new PizzaModelHelper(this);
+        mSouceModel = new SouceModelHelper(this);
+        orderPizzaService = new OrderPizzaService();
+
+        pizzaInfoArray = new ArrayList<>();
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             imageView.setImageResource(bundle.getInt("resId"));
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             pizzaName.setText(bundle.getString("pizzaName"));
+            pizzaInfoArray.add(bundle.getString("pizzaName"));
             pizzaDescription.setText(bundle.getString("pizzaDescription"));
+            pizzaInfoArray.add(bundle.getString("pizzaDescription"));
             pizzaTotalPrice.setText(bundle.getString("pizzaPrice"));
             totalPriceAmount = Double.parseDouble(pizzaTotalPrice.getText().toString().split(" ")[0].trim());
         }
@@ -92,7 +109,12 @@ public class MenuPizzaActivity extends AppCompatActivity {
     }
 
     public void addToCart(View view) {
+        insertIntoTheDatabase();
         Toast.makeText(this, "adaugat in cos", Toast.LENGTH_SHORT).show();
+    }
+
+    private void insertIntoTheDatabase() {
+        orderPizzaService.insertPizzaDatabase(mPizzaModel.getWritableDatabase(), mSouceModel.getWritableDatabase(), pizzaInfoArray,extraT);
     }
 
     private void createOnMinusClickListener() {

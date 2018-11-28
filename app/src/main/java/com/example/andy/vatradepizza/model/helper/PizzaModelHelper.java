@@ -5,22 +5,39 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class PizzaModelHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "vatraDePizza.db";
-    private static final String TABLE_NAME = "pizza_table";
-    private static final String UUID = "uuid";
+    private static final String PIZZA_TABLE = "pizza_table";
+    private static final String PIZZA_UUID = "pizza_uuid";
     private static final String PIZZA_NAME = "pizza_name";
     private static final String PIZZA_DESCRIPTION = "pizza_description";
     private static final String PIZZA_PRICE = "pizza_price";
     private static final String PIZZA_EXTRA_TOPPINGS = "pizza_extra_toppings";
 
-    private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + PizzaModelHelper.TABLE_NAME + " (" +
-                    PizzaModelHelper.UUID + " TEXT PRIMARY KEY," +
+    private static final String SQL_CREATE_PIZZA =
+            "CREATE TABLE " + PizzaModelHelper.PIZZA_TABLE + " (" +
+                    PizzaModelHelper.PIZZA_UUID + " TEXT PRIMARY KEY," +
                     PizzaModelHelper.PIZZA_NAME + " TEXT," +
                     PizzaModelHelper.PIZZA_DESCRIPTION + " TEXT," +
                     PizzaModelHelper.PIZZA_PRICE + " DOUBLE," +
                     PizzaModelHelper.PIZZA_EXTRA_TOPPINGS + " TEXT)";
+
+    //////////////
+
+    private static final String SOUCES_TABLE = "souces_table";
+    private static final String SOUCE_ID = "id";
+    private static final String SOUCE_NAME = "souce_name";
+    private static final String SOUCE_QUANTITY = "quantity";
+
+
+    private static final String SQL_CREATE_SOUCES =
+            "CREATE TABLE " + SOUCES_TABLE + " (" +
+                    SOUCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    SOUCE_NAME + " TEXT," +
+                    SOUCE_QUANTITY + " INTEGER," +
+                    PIZZA_UUID + " TEXT," +
+                    "FOREIGN KEY (" + PIZZA_UUID + " ) REFERENCES " +
+                    PIZZA_TABLE + " ( " + SOUCE_ID + " )) ";
 
 
     public PizzaModelHelper(Context context) {
@@ -29,12 +46,15 @@ public class PizzaModelHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(PizzaModelHelper.SQL_CREATE_ENTRIES);
+        db.execSQL(PizzaModelHelper.SQL_CREATE_PIZZA);
+        db.execSQL(PizzaModelHelper.SQL_CREATE_SOUCES);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PIZZA_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + SOUCES_TABLE);
+
         onCreate(db);
     }
 }

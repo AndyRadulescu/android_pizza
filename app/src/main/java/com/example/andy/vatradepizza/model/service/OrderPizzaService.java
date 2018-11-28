@@ -36,7 +36,7 @@ public class OrderPizzaService {
     /**
      * Inserts pizza into the database. If there are souces, they will also be inserted.
      */
-    public void insertPizzaDatabase(SQLiteDatabase pizzaDb, SQLiteDatabase souceDb, ArrayList<String>
+    public void insertPizzaDatabase(SQLiteDatabase db, ArrayList<String>
             pizzaInfoArray, double pizzaTotalPrice, HashMap<String, Boolean> extraToppings,
                                     HashMap<String, Integer> extraSouce) {
 
@@ -51,7 +51,7 @@ public class OrderPizzaService {
         String pizzaTableUUID = String.valueOf(UUID.randomUUID());
 
         ContentValues pizzaContent = new ContentValues();
-        pizzaContent.put("uuid", pizzaTableUUID);
+        pizzaContent.put("pizza_uuid", pizzaTableUUID);
         pizzaContent.put("pizza_name", pizzaInfoArray.get(0));
         pizzaContent.put("pizza_description", pizzaInfoArray.get(1));
         pizzaContent.put("pizza_price", pizzaTotalPrice);
@@ -67,14 +67,14 @@ public class OrderPizzaService {
 
         }
 
-        pizzaDb.beginTransaction();
+        db.beginTransaction();
         try {
-            pizzaDb.insert("pizza_table", null, pizzaContent);
+            db.insert("pizza_table", null, pizzaContent);
             for (ContentValues content : souceToInsert) {
-                souceDb.insert("souces_table", null, content);
+                db.insert("souces_table", null, content);
             }
         } finally {
-            pizzaDb.endTransaction();
+            db.endTransaction();
         }
     }
 
@@ -83,7 +83,7 @@ public class OrderPizzaService {
         ContentValues contentValues = new ContentValues();
         contentValues.put("souce_name", souceName);
         contentValues.put("quantity", extraSouce.get(souceName));
-        contentValues.put("pizza_id", pizzaUUID);
+        contentValues.put("pizza_uuid", pizzaUUID);
 
         return contentValues;
     }

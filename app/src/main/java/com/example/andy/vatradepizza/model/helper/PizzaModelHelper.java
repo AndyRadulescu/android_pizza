@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class PizzaModelHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "vatraDePizza.db";
     private static final String TABLE_NAME = "pizza_table";
     private static final String ID = "id";
@@ -21,6 +21,23 @@ public class PizzaModelHelper extends SQLiteOpenHelper {
                     PizzaModelHelper.PIZZA_DESCRIPTION + " TEXT," +
                     PizzaModelHelper.PIZZA_PRICE + " DOUBLE," +
                     PizzaModelHelper.PIZZA_EXTRA_TOPPINGS + " TEXT)";
+
+    //////////////
+
+    private static final String SOUCES_TABLE = "souces_table";
+    private static final String SOUCE_ID = "id";
+    private static final String SOUCE_NAME = "souce_name";
+    private static final String SOUCE_QUANTITY = "quantity";
+
+
+    private static final String SQL_CREATE_SOUCES =
+            "CREATE TABLE " + SOUCES_TABLE + " (" +
+                    SOUCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    SOUCE_NAME + " TEXT," +
+                    SOUCE_QUANTITY + " INTEGER," +
+                    PIZZA_UUID + " TEXT," +
+                    "FOREIGN KEY (" + PIZZA_UUID + " ) REFERENCES " +
+                    PIZZA_TABLE + " ( " + SOUCE_ID + " )) ";
 
 
     public PizzaModelHelper(Context context) {

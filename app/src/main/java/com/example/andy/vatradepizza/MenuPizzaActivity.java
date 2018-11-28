@@ -2,7 +2,6 @@ package com.example.andy.vatradepizza;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.andy.vatradepizza.model.helper.PizzaModelHelper;
-import com.example.andy.vatradepizza.model.helper.SouceModelHelper;
 import com.example.andy.vatradepizza.model.service.OrderPizzaService;
 
 import java.util.ArrayList;
@@ -33,7 +31,6 @@ public class MenuPizzaActivity extends AppCompatActivity {
     private ArrayList<String> pizzaInfoArray;
 
     private PizzaModelHelper mPizzaModel;
-    private SouceModelHelper mSouceModel;
     private OrderPizzaService orderPizzaService;
 
     @Override

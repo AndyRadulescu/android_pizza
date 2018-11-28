@@ -2,6 +2,8 @@ package com.example.andy.vatradepizza.database.service;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 
 public class OrderPizzaService {
 
@@ -37,8 +39,8 @@ public class OrderPizzaService {
     /**
      * Updates the database.
      */
-    public void insertPizzaDatabase(ArrayList<String>
-                                            pizzaInfoArray, double pizzaTotalPrice, HashMap<String, Boolean> extraToppings,
+    public void insertPizzaDatabase(PizzaModel
+                                            pizzaDAO, HashMap<String, Boolean> extraToppings,
                                     HashMap<String, Integer> extraSouce) {
 
         ArrayList<ContentValues> souceToInsert = new ArrayList<>();
@@ -53,9 +55,9 @@ public class OrderPizzaService {
 
         ContentValues pizzaContent = new ContentValues();
         pizzaContent.put("pizza_uuid", pizzaTableUUID);
-        pizzaContent.put("pizza_name", pizzaInfoArray.get(0));
-        pizzaContent.put("pizza_description", pizzaInfoArray.get(1));
-        pizzaContent.put("pizza_price", pizzaTotalPrice);
+        pizzaContent.put("pizza_name", pizzaDAO.getPizzaName());
+        pizzaContent.put("pizza_description", pizzaDAO.getPizzaDescription());
+        pizzaContent.put("pizza_price", pizzaDAO.getPizzaPrice());
         pizzaContent.put("pizza_extra_toppings", extraToppingsString.toString());
 
         if (!extraSouce.isEmpty()) {
@@ -68,17 +70,18 @@ public class OrderPizzaService {
 
         }
 
-//        db.beginTransaction();
-//        try {
-        db.insert("pizza_table", null, pizzaContent);
-        for (ContentValues content : souceToInsert) {
-            db.insert("souces_table", null, content);
+        db.beginTransaction();
+        try {
+            db.insert("pizza_table", null, pizzaContent);
+            for (ContentValues content : souceToInsert) {
+                db.insert("souces_table", null, content);
+            }
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.e("----------------error", e.getMessage());
+        } finally {
+            db.endTransaction();
         }
-//        } catch (Exception e) {
-//            Log.e("----------------error", e.getMessage());
-//        } finally {
-//            db.endTransaction();
-//        }
     }
 
     private ContentValues getSouceContentValues(HashMap<String, Integer> extraSouce, String pizzaUUID, String souceName) {
@@ -92,7 +95,13 @@ public class OrderPizzaService {
     }
 
     public void deleteAllData() {
-        db.execSQL("delete from " + DatabaseHelper.PIZZA_TABLE);
-        db.execSQL("delete from " + DatabaseHelper.SOUCES_TABLE);
+        db.beginTransaction();
+        try {
+            db.execSQL("delete from " + DatabaseHelper.PIZZA_TABLE);
+            db.execSQL("delete from " + DatabaseHelper.SOUCES_TABLE);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
     }
 }

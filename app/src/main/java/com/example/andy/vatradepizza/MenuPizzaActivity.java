@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.andy.vatradepizza.database.helper.DatabaseHelper;
+import com.example.andy.vatradepizza.database.model.PizzaModel;
 import com.example.andy.vatradepizza.database.service.OrderPizzaService;
 
 import java.util.ArrayList;
@@ -27,8 +28,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
     private ImageView imageView;
     private TextView pizzaName, pizzaDescription, tvWhiteSouce, tvRedSouce, tvWhiteSouceSpicy, tvRedSouceSpicy, pizzaTotalPrice;
     private ImageButton ibWhiteSouceMinus, ibWhiteSoucePlus, ibWhiteSouceSpicyMinus, ibWhiteSouceSpicyPlus, ibRedSouceSpicyMinus, ibRedSouceSpicyPlus, ibRedSouceMinus, ibRedSoucePlus;
-    private double totalPriceAmount;
-    private ArrayList<String> pizzaInfoArray;
+    private PizzaModel pizzaDAO;
 
     private OrderPizzaService orderPizzaService;
 
@@ -78,17 +78,20 @@ public class MenuPizzaActivity extends AppCompatActivity {
         if (bundle != null) {
             imageView.setImageResource(bundle.getInt("resId"));
             pizzaName.setText(bundle.getString("pizzaName"));
-            pizzaInfoArray.add(bundle.getString("pizzaName"));
+            pizzaDAO.setPizzaName(bundle.getString("pizzaName"));
             pizzaDescription.setText(bundle.getString("pizzaDescription"));
-            pizzaInfoArray.add(bundle.getString("pizzaDescription"));
+            pizzaDAO.setPizzaDescription(bundle.getString("pizzaDescription"));
             pizzaTotalPrice.setText(bundle.getString("pizzaPrice"));
-            totalPriceAmount = Double.parseDouble(pizzaTotalPrice.getText().toString().split(" ")[0].trim());
+            pizzaDAO.setPizzaPrice(Double.parseDouble(pizzaTotalPrice.getText().toString().split(" ")[0].trim()));
         }
         createOnMinusAndPlusClickListener();
         createToppingCheckboxListener();
 
     }
 
+    /**
+     * Creates the listener for the checkboxes. Adds or subtracts 3.
+     */
     private void createToppingCheckboxListener() {
         for (int i = 0; i < tlToppings.getChildCount(); i++) {
             TableRow row = (TableRow) tlToppings.getChildAt(i);
@@ -103,16 +106,22 @@ public class MenuPizzaActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Adds or subtracts from the total price amount.
+     *
+     * @param checkBox
+     * @param toppingItem
+     */
     private void addOrSubstituteFromTotalPriceAmount(CheckBox checkBox, TextView toppingItem) {
         String toppingName = String.valueOf(toppingItem.getText().toString());
         if (checkBox.isChecked()) {
-            totalPriceAmount += 3;
+            pizzaDAO.setPizzaPrice(pizzaDAO.getPizzaPrice() + 3);
             extraToppings.put(toppingName, true);
         } else {
-            totalPriceAmount -= 3;
+            pizzaDAO.setPizzaPrice(pizzaDAO.getPizzaPrice() - 3);
             extraToppings.remove(toppingName);
         }
-        String newPrice = totalPriceAmount + " lei";
+        String newPrice = pizzaDAO.getPizzaPrice() + " lei";
         pizzaTotalPrice.setText(newPrice);
     }
 
@@ -143,6 +152,9 @@ public class MenuPizzaActivity extends AppCompatActivity {
         Toast.makeText(this, "adaugat in cos", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Calls the insert method for data to be inserted.
+     */
     private void insertIntoTheDatabase() {
         orderPizzaService.insertPizzaDatabase(mPizzaModel.getWritableDatabase(), mSouceModel.getWritableDatabase(), pizzaInfoArray,extraT);
     }
@@ -159,6 +171,11 @@ public class MenuPizzaActivity extends AppCompatActivity {
         ibRedSouceSpicyPlus.setOnClickListener(e -> plusButtonClicked(tvRedSouceSpicy, "sos rosu picant"));
     }
 
+    /**
+     * Subtracts 3 from the amount if the - button has been pressed.
+     * @param tvCount
+     * @param souceName
+     */
     private void minusButtonClicked(TextView tvCount, String souceName) {
         int valueCount = Integer.parseInt(tvCount.getText().toString());
 
@@ -170,12 +187,17 @@ public class MenuPizzaActivity extends AppCompatActivity {
                 extraSouce.put(souceName, valueCount);
             }
         }
-        totalPriceAmount -= 3;
-        String newPrice = totalPriceAmount + " lei";
+        pizzaDAO.setPizzaPrice(pizzaDAO.getPizzaPrice() - 3);
+        String newPrice = pizzaDAO.getPizzaPrice() + " lei";
         pizzaTotalPrice.setText(newPrice);
         tvCount.setText(String.valueOf(valueCount));
     }
 
+    /**
+     * Adds 3 from the amount if the - button has been pressed.
+     * @param tvCount
+     * @param souceName
+     */
     private void plusButtonClicked(TextView tvCount, String souceName) {
         int valueCount = Integer.parseInt(tvCount.getText().toString());
         if (valueCount >= 20) {
@@ -184,8 +206,8 @@ public class MenuPizzaActivity extends AppCompatActivity {
             valueCount++;
             extraSouce.put(souceName, valueCount);
         }
-        totalPriceAmount += 3;
-        String newPrice = totalPriceAmount + " lei";
+        pizzaDAO.setPizzaPrice(pizzaDAO.getPizzaPrice() + 3);
+        String newPrice = pizzaDAO.getPizzaPrice() + " lei";
         pizzaTotalPrice.setText(newPrice);
         tvCount.setText(String.valueOf(valueCount));
     }

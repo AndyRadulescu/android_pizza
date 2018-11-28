@@ -16,8 +16,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.andy.vatradepizza.model.helper.PizzaModelHelper;
-import com.example.andy.vatradepizza.model.service.OrderPizzaService;
+import com.example.andy.vatradepizza.database.helper.DatabaseHelper;
+import com.example.andy.vatradepizza.database.service.OrderPizzaService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +31,6 @@ public class MenuPizzaActivity extends AppCompatActivity {
     private double totalPriceAmount;
     private ArrayList<String> pizzaInfoArray;
 
-    private PizzaModelHelper mPizzaModel;
     private OrderPizzaService orderPizzaService;
     private TableLayout tlToppings;
 
@@ -75,8 +74,8 @@ public class MenuPizzaActivity extends AppCompatActivity {
         tvRedSouceSpicy = findViewById(R.id.tf_sos_rosu_picant);
         tvRedSouceSpicy.setText("0");
 
-        mPizzaModel = new PizzaModelHelper(this);
-        orderPizzaService = new OrderPizzaService();
+        DatabaseHelper mPizzaModel = new DatabaseHelper(this);
+        orderPizzaService = new OrderPizzaService(mPizzaModel.getWritableDatabase());
 
         pizzaInfoArray = new ArrayList<>();
         tlToppings = findViewById(R.id.tl_toppings);
@@ -154,7 +153,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
     }
 
     private void insertIntoTheDatabase() {
-        orderPizzaService.insertPizzaDatabase(mPizzaModel.getWritableDatabase(), pizzaInfoArray,
+        orderPizzaService.insertPizzaDatabase(pizzaInfoArray,
                 totalPriceAmount, extraToppings, extraSouce);
     }
 

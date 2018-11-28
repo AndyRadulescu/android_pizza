@@ -1,7 +1,9 @@
-package com.example.andy.vatradepizza.model.service;
+package com.example.andy.vatradepizza.database.service;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.andy.vatradepizza.database.helper.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,35 +11,17 @@ import java.util.Map;
 import java.util.UUID;
 
 public class OrderPizzaService {
+    SQLiteDatabase db;
 
-    public OrderPizzaService() {
-
+    public OrderPizzaService(SQLiteDatabase db) {
+        this.db = db;
     }
-
-//    /**
-//     * Selects the parking info from the database.
-//     */
-//    public List<ParkingDTO> getInfoFromDb(DbHelper mDbHelper) {
-//        List<ParkingDTO> parkingPlaces = new ArrayList<>();
-//        parkingPlaces.clear();
-//        try (Cursor cursor = mDbHelper.getAllData()) {
-//            if (cursor.moveToFirst()) {
-//                do {
-//                    String id = cursor.getString(cursor.getColumnIndex("ID"));
-//                    String availability = cursor.getString(cursor.getColumnIndex("availability"));
-//                    String name = cursor.getString(cursor.getColumnIndex("name"));
-//                    parkingPlaces.add(new ParkingDTO(Integer.parseInt(id), name, Integer.parseInt(availability)));
-//                } while (cursor.moveToNext());
-//            }
-//            return parkingPlaces;
-//        }
-//    }
 
     /**
      * Inserts pizza into the database. If there are souces, they will also be inserted.
      */
-    public void insertPizzaDatabase(SQLiteDatabase db, ArrayList<String>
-            pizzaInfoArray, double pizzaTotalPrice, HashMap<String, Boolean> extraToppings,
+    public void insertPizzaDatabase(ArrayList<String>
+                                            pizzaInfoArray, double pizzaTotalPrice, HashMap<String, Boolean> extraToppings,
                                     HashMap<String, Integer> extraSouce) {
 
         ArrayList<ContentValues> souceToInsert = new ArrayList<>();
@@ -67,15 +51,17 @@ public class OrderPizzaService {
 
         }
 
-        db.beginTransaction();
-        try {
-            db.insert("pizza_table", null, pizzaContent);
-            for (ContentValues content : souceToInsert) {
-                db.insert("souces_table", null, content);
-            }
-        } finally {
-            db.endTransaction();
+//        db.beginTransaction();
+//        try {
+        db.insert("pizza_table", null, pizzaContent);
+        for (ContentValues content : souceToInsert) {
+            db.insert("souces_table", null, content);
         }
+//        } catch (Exception e) {
+//            Log.e("----------------error", e.getMessage());
+//        } finally {
+//            db.endTransaction();
+//        }
     }
 
     private ContentValues getSouceContentValues(HashMap<String, Integer> extraSouce, String pizzaUUID, String souceName) {
@@ -86,5 +72,10 @@ public class OrderPizzaService {
         contentValues.put("pizza_uuid", pizzaUUID);
 
         return contentValues;
+    }
+
+    public void deleteAllData() {
+        db.execSQL("delete from " + DatabaseHelper.PIZZA_TABLE);
+        db.execSQL("delete from " + DatabaseHelper.SOUCES_TABLE);
     }
 }

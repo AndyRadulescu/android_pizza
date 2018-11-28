@@ -20,6 +20,7 @@ public class SouceModelHelper extends SQLiteOpenHelper {
                     SouceModelHelper.ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     SouceModelHelper.SOUCE_NAME + " TEXT," +
                     SouceModelHelper.QUANTITY + " INTEGER," +
+                    SouceModelHelper.FOREIGN_PIZZA_ID + " UUID," +
                     "FOREIGN KEY(" + SouceModelHelper.FOREIGN_PIZZA_ID + ") REFERENCES " +
                     SouceModelHelper.FOREIGN_PIZZA_TABLE + "(" + SouceModelHelper.ID + "))";
 

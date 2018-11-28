@@ -1,4 +1,4 @@
-package com.example.andy.vatradepizza.model.service;
+package com.example.andy.vatradepizza.database.service;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,8 +37,8 @@ public class OrderPizzaService {
     /**
      * Updates the database.
      */
-    public void insertPizzaDatabase(SQLiteDatabase db, ArrayList<String>
-            pizzaInfoArray, double pizzaTotalPrice, HashMap<String, Boolean> extraToppings,
+    public void insertPizzaDatabase(ArrayList<String>
+                                            pizzaInfoArray, double pizzaTotalPrice, HashMap<String, Boolean> extraToppings,
                                     HashMap<String, Integer> extraSouce) {
 
         ArrayList<ContentValues> souceToInsert = new ArrayList<>();
@@ -68,15 +68,17 @@ public class OrderPizzaService {
 
         }
 
-        db.beginTransaction();
-        try {
-            db.insert("pizza_table", null, pizzaContent);
-            for (ContentValues content : souceToInsert) {
-                db.insert("souces_table", null, content);
-            }
-        } finally {
-            db.endTransaction();
+//        db.beginTransaction();
+//        try {
+        db.insert("pizza_table", null, pizzaContent);
+        for (ContentValues content : souceToInsert) {
+            db.insert("souces_table", null, content);
         }
+//        } catch (Exception e) {
+//            Log.e("----------------error", e.getMessage());
+//        } finally {
+//            db.endTransaction();
+//        }
     }
 
     private ContentValues getSouceContentValues(HashMap<String, Integer> extraSouce, String pizzaUUID, String souceName) {
@@ -87,5 +89,10 @@ public class OrderPizzaService {
         contentValues.put("pizza_uuid", pizzaUUID);
 
         return contentValues;
+    }
+
+    public void deleteAllData() {
+        db.execSQL("delete from " + DatabaseHelper.PIZZA_TABLE);
+        db.execSQL("delete from " + DatabaseHelper.SOUCES_TABLE);
     }
 }

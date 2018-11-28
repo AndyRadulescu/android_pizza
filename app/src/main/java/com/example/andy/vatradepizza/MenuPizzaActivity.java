@@ -16,8 +16,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.andy.vatradepizza.model.helper.PizzaModelHelper;
-import com.example.andy.vatradepizza.model.service.OrderPizzaService;
+import com.example.andy.vatradepizza.database.helper.DatabaseHelper;
+import com.example.andy.vatradepizza.database.service.OrderPizzaService;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -30,7 +30,6 @@ public class MenuPizzaActivity extends AppCompatActivity {
     private double totalPriceAmount;
     private ArrayList<String> pizzaInfoArray;
 
-    private PizzaModelHelper mPizzaModel;
     private OrderPizzaService orderPizzaService;
 
     @Override

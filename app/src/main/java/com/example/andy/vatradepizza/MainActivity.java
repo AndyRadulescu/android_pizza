@@ -1,7 +1,6 @@
 package com.example.andy.vatradepizza;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -19,6 +18,8 @@ import android.view.MenuItem;
 import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
 
+import com.example.andy.vatradepizza.database.helper.DatabaseHelper;
+import com.example.andy.vatradepizza.database.service.OrderPizzaService;
 import com.example.andy.vatradepizza.menuFragments.OfferFragment;
 import com.example.andy.vatradepizza.menuFragments.PizzaFragment;
 
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity
 
     FragmentManager manager;
     FragmentTransaction transaction;
+
+    OrderPizzaService orderService;
+    DatabaseHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,9 @@ public class MainActivity extends AppCompatActivity
         relativeMenuItem6 = findViewById(R.id.relative6);
 
         makeOnClickOnTheMenuScroll();
+        mDbHelper = new DatabaseHelper(this);
+        orderService = new OrderPizzaService(mDbHelper.getWritableDatabase());
+        orderService.deleteAllData();
 
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();

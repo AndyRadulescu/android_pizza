@@ -2,13 +2,18 @@ package com.example.andy.vatradepizza;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,7 +88,36 @@ public class MenuPizzaActivity extends AppCompatActivity {
             pizzaTotalPrice.setText(bundle.getString("pizzaPrice"));
             totalPriceAmount = Double.parseDouble(pizzaTotalPrice.getText().toString().split(" ")[0].trim());
         }
-        createOnMinusClickListener();
+        createOnMinusAndPlusClickListener();
+        createToppingCheckboxListener();
+
+    }
+
+    private void createToppingCheckboxListener() {
+        for (int i = 0; i < tlToppings.getChildCount(); i++) {
+            TableRow row = (TableRow) tlToppings.getChildAt(i);
+            Log.d("debug----------->", String.valueOf(row.getChildCount()));
+
+            for (int j = 1; j < row.getChildCount(); j += 2) {
+                TextView toppingItem = (TextView) row.getChildAt(j - 1);
+                CheckBox toppingCheckBox = (CheckBox) row.getChildAt(j);
+                toppingCheckBox.setOnClickListener(e ->
+                        addOrSubstituteFromTotalPriceAmount(toppingCheckBox, toppingItem));
+            }
+        }
+    }
+
+    private void addOrSubstituteFromTotalPriceAmount(CheckBox checkBox, TextView toppingItem) {
+        String toppingName = String.valueOf(toppingItem.getText().toString());
+        if (checkBox.isChecked()) {
+            totalPriceAmount += 3;
+            extraToppings.put(toppingName, true);
+        } else {
+            totalPriceAmount -= 3;
+            extraToppings.remove(toppingName);
+        }
+        String newPrice = totalPriceAmount + " lei";
+        pizzaTotalPrice.setText(newPrice);
     }
 
     @Override
@@ -123,19 +157,22 @@ public class MenuPizzaActivity extends AppCompatActivity {
         ibRedSouceMinus.setOnClickListener(e -> minusButtonClicked(tvRedSouce));
         ibRedSouceSpicyMinus.setOnClickListener(e -> minusButtonClicked(tvRedSouceSpicy));
 
-        ibWhiteSoucePlus.setOnClickListener(e -> plusButtonClicked(tvWhiteSouce));
-        ibWhiteSouceSpicyPlus.setOnClickListener(e -> plusButtonClicked(tvWhiteSouceSpicy));
-        ibRedSoucePlus.setOnClickListener(e -> plusButtonClicked(tvRedSouce));
-        ibRedSouceSpicyPlus.setOnClickListener(e -> plusButtonClicked(tvRedSouceSpicy));
+        ibWhiteSoucePlus.setOnClickListener(e -> plusButtonClicked(tvWhiteSouce, "sos alb"));
+        ibWhiteSouceSpicyPlus.setOnClickListener(e -> plusButtonClicked(tvWhiteSouceSpicy, "sos alb picant"));
+        ibRedSoucePlus.setOnClickListener(e -> plusButtonClicked(tvRedSouce, "sos rosu"));
+        ibRedSouceSpicyPlus.setOnClickListener(e -> plusButtonClicked(tvRedSouceSpicy, "sos rosu picant"));
     }
 
-    private void minusButtonClicked(TextView tvCount) {
+    private void minusButtonClicked(TextView tvCount, String souceName) {
         int valueCount = Integer.parseInt(tvCount.getText().toString());
 
         if (valueCount <= 0) {
             return;
         } else {
             valueCount--;
+            if (extraSouce.get(souceName) != null) {
+                extraSouce.put(souceName, valueCount);
+            }
         }
         totalPriceAmount -= 3;
         String newPrice = totalPriceAmount + " lei";
@@ -143,12 +180,13 @@ public class MenuPizzaActivity extends AppCompatActivity {
         tvCount.setText(String.valueOf(valueCount));
     }
 
-    private void plusButtonClicked(TextView tvCount) {
+    private void plusButtonClicked(TextView tvCount, String souceName) {
         int valueCount = Integer.parseInt(tvCount.getText().toString());
-        if (valueCount >= 10) {
+        if (valueCount >= 20) {
             return;
         } else {
             valueCount++;
+            extraSouce.put(souceName, valueCount);
         }
         totalPriceAmount += 3;
         String newPrice = totalPriceAmount + " lei";

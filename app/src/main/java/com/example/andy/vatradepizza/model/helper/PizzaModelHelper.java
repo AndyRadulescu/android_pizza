@@ -8,7 +8,7 @@ public class PizzaModelHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "vatraDePizza.db";
     private static final String TABLE_NAME = "pizza_table";
-    private static final String ID = "id";
+    private static final String UUID = "uuid";
     private static final String PIZZA_NAME = "pizza_name";
     private static final String PIZZA_DESCRIPTION = "pizza_description";
     private static final String PIZZA_PRICE = "pizza_price";
@@ -16,7 +16,7 @@ public class PizzaModelHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + PizzaModelHelper.TABLE_NAME + " (" +
-                    PizzaModelHelper.ID + "UUID PRIMARY KEY," +
+                    PizzaModelHelper.UUID + " TEXT PRIMARY KEY," +
                     PizzaModelHelper.PIZZA_NAME + " TEXT," +
                     PizzaModelHelper.PIZZA_DESCRIPTION + " TEXT," +
                     PizzaModelHelper.PIZZA_PRICE + " DOUBLE," +
@@ -29,16 +29,12 @@ public class PizzaModelHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(PizzaModelHelper.SQL_CREATE_ENTRIES);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
-    }
-
-    private SQLiteDatabase getSQLDatabaseInstance() {
-        return this.getWritableDatabase();
     }
 }

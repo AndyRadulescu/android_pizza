@@ -6,18 +6,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 4;
-    public static final String DATABASE_NAME = "vatraDePizza.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "vatraDePizza.db";
     public static final String PIZZA_TABLE = "pizza_table";
     public static final String PIZZA_UUID = "pizza_uuid";
+    public static final String PIZZA_IMAGE_RES_ID = "pizza_img_res";
     public static final String PIZZA_NAME = "pizza_name";
     public static final String PIZZA_DESCRIPTION = "pizza_description";
     public static final String PIZZA_PRICE = "pizza_price";
     public static final String PIZZA_EXTRA_TOPPINGS = "pizza_extra_toppings";
 
-    public static final String SQL_CREATE_PIZZA =
+    private static final String SQL_CREATE_PIZZA =
             "CREATE TABLE " + DatabaseHelper.PIZZA_TABLE + " (" +
                     DatabaseHelper.PIZZA_UUID + " TEXT PRIMARY KEY," +
+                    DatabaseHelper.PIZZA_IMAGE_RES_ID + " INTEGER," +
                     DatabaseHelper.PIZZA_NAME + " TEXT," +
                     DatabaseHelper.PIZZA_DESCRIPTION + " TEXT," +
                     DatabaseHelper.PIZZA_PRICE + " DOUBLE," +
@@ -31,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String SOUCE_QUANTITY = "quantity";
 
 
-    public static final String SQL_CREATE_SOUCES =
+    private static final String SQL_CREATE_SOUCES =
             "CREATE TABLE " + SOUCES_TABLE + " (" +
                     SOUCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     SOUCE_NAME + " TEXT," +

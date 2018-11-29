@@ -32,38 +32,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         dataBaseTestInfo = findViewById(R.id.database_info);
         dbHelper = new DatabaseHelper(this);
         dbPizzaService = new OrderPizzaService(dbHelper.getWritableDatabase());
-        Cursor pizzaCursor = dbPizzaService.getAllPizzaData();
-        ArrayList<PizzaModel> pizzaList = new ArrayList<>();
-
-        if (pizzaCursor.moveToFirst()) {
-            do {
-                PizzaModel pizzaItem = new PizzaModel();
-                pizzaItem.setUuid(pizzaCursor.getString(pizzaCursor.getColumnIndex(DatabaseHelper.PIZZA_UUID)));
-                pizzaItem.setPizzaName(pizzaCursor.getString(pizzaCursor.getColumnIndex(DatabaseHelper.PIZZA_NAME)));
-                pizzaItem.setPizzaDescription(pizzaCursor.getString(pizzaCursor.getColumnIndex(DatabaseHelper.PIZZA_DESCRIPTION)));
-                pizzaItem.setPizzaPrice(pizzaCursor.getDouble(pizzaCursor.getColumnIndex(DatabaseHelper.PIZZA_PRICE)));
-                pizzaItem.setToppings(pizzaCursor.getString(pizzaCursor.getColumnIndex(DatabaseHelper.PIZZA_EXTRA_TOPPINGS)));
-
-                Cursor souceCursor = dbPizzaService.getSoucesForPizzaWhereUUID(pizzaItem.getUuid());
-                if (souceCursor.moveToFirst()) {
-                    ArrayList<SouceModel> soucesList = new ArrayList<>();
-                    do {
-                        SouceModel souceItem = new SouceModel();
-                        souceItem.setId(souceCursor.getInt(souceCursor.getColumnIndex(DatabaseHelper.SOUCE_ID)));
-                        souceItem.setSouceName(souceCursor.getString(souceCursor.getColumnIndex(DatabaseHelper.SOUCE_NAME)));
-                        souceItem.setSouceQuantity(souceCursor.getInt(souceCursor.getColumnIndex(DatabaseHelper.SOUCE_QUANTITY)));
-
-                        soucesList.add(souceItem);
-                    } while (souceCursor.moveToNext());
-
-                    pizzaItem.setSouceList(soucesList);
-                }
-                pizzaList.add(pizzaItem);
-            } while (pizzaCursor.moveToNext());
-        }
-        pizzaCursor.close();
-
-        dataBaseTestInfo.setText(pizzaList.toString());
+        dataBaseTestInfo.setText(dbPizzaService.getAllData().toString());
     }
 
     @Override

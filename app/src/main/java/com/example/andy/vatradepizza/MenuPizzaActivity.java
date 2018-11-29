@@ -83,6 +83,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             imageView.setImageResource(bundle.getInt("resId"));
+            pizzaDAO.setImageId(bundle.getInt("resId"));
             pizzaName.setText(bundle.getString("pizzaName"));
             pizzaDAO.setPizzaName(bundle.getString("pizzaName"));
             pizzaDescription.setText(bundle.getString("pizzaDescription"));
@@ -183,6 +184,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
 
     /**
      * Subtracts 3 from the amount if the - button has been pressed.
+     *
      * @param tvCount
      * @param souceName
      */
@@ -205,6 +207,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
 
     /**
      * Adds 3 from the amount if the - button has been pressed.
+     *
      * @param tvCount
      * @param souceName
      */

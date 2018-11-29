@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class PizzaModel {
     private String uuid;
+    private int imageId;
     private String pizzaName;
     private String pizzaDescription;
     private double pizzaPrice;
@@ -11,16 +12,24 @@ public class PizzaModel {
     private ArrayList<SouceModel> souceList;
 
     public PizzaModel() {
-
     }
 
-    public PizzaModel(String uuid, String pizzaName, String pizzaDescription, double pizzaPrice, String toppings, ArrayList<SouceModel> souceList) {
+    public PizzaModel(String uuid, int imageId, String pizzaName, String pizzaDescription, double pizzaPrice, String toppings, ArrayList<SouceModel> souceList) {
         this.uuid = uuid;
+        this.imageId = imageId;
         this.pizzaName = pizzaName;
         this.pizzaDescription = pizzaDescription;
         this.pizzaPrice = pizzaPrice;
         this.toppings = toppings;
         this.souceList = souceList;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     public String getUuid() {
@@ -75,6 +84,7 @@ public class PizzaModel {
     public String toString() {
         return "PizzaModel{" +
                 "uuid='" + uuid + '\'' +
+                ", imageId=" + imageId +
                 ", pizzaName='" + pizzaName + '\'' +
                 ", pizzaDescription='" + pizzaDescription + '\'' +
                 ", pizzaPrice=" + pizzaPrice +

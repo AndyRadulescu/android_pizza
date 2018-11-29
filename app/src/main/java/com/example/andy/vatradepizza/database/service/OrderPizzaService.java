@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.andy.vatradepizza.database.helper.DatabaseHelper;
 import com.example.andy.vatradepizza.database.model.PizzaModel;
+import com.example.andy.vatradepizza.database.model.SouceModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +40,7 @@ public class OrderPizzaService {
 
         ContentValues pizzaContent = new ContentValues();
         pizzaContent.put(DatabaseHelper.PIZZA_UUID, pizzaTableUUID);
+        pizzaContent.put(DatabaseHelper.PIZZA_IMAGE_RES_ID, pizzaDAO.getImageId());
         pizzaContent.put(DatabaseHelper.PIZZA_NAME, pizzaDAO.getPizzaName());
         pizzaContent.put(DatabaseHelper.PIZZA_DESCRIPTION, pizzaDAO.getPizzaDescription());
         pizzaContent.put(DatabaseHelper.PIZZA_PRICE, pizzaDAO.getPizzaPrice());
@@ -89,7 +91,7 @@ public class OrderPizzaService {
         }
     }
 
-    public Cursor getAllPizzaData() {
+    public Cursor getPizza() {
 
         return db.rawQuery("select * from " + DatabaseHelper.PIZZA_TABLE, null);
     }
@@ -98,5 +100,40 @@ public class OrderPizzaService {
         return db.rawQuery("select " + DatabaseHelper.SOUCE_ID + " , " + DatabaseHelper.SOUCE_NAME
                 + " , " + DatabaseHelper.SOUCE_QUANTITY + " from " + DatabaseHelper.SOUCES_TABLE
                 + " where " + DatabaseHelper.PIZZA_UUID + " =\"" + uuid + "\"", null);
+    }
+
+    public ArrayList<PizzaModel> getAllData() {
+        Cursor pizzaCursor = this.getPizza();
+        ArrayList<PizzaModel> pizzaList = new ArrayList<>();
+
+        if (pizzaCursor.moveToFirst()) {
+            do {
+                PizzaModel pizzaItem = new PizzaModel();
+                pizzaItem.setUuid(pizzaCursor.getString(pizzaCursor.getColumnIndex(DatabaseHelper.PIZZA_UUID)));
+                pizzaItem.setImageId(pizzaCursor.getInt(pizzaCursor.getColumnIndex(DatabaseHelper.PIZZA_IMAGE_RES_ID)));
+                pizzaItem.setPizzaName(pizzaCursor.getString(pizzaCursor.getColumnIndex(DatabaseHelper.PIZZA_NAME)));
+                pizzaItem.setPizzaDescription(pizzaCursor.getString(pizzaCursor.getColumnIndex(DatabaseHelper.PIZZA_DESCRIPTION)));
+                pizzaItem.setPizzaPrice(pizzaCursor.getDouble(pizzaCursor.getColumnIndex(DatabaseHelper.PIZZA_PRICE)));
+                pizzaItem.setToppings(pizzaCursor.getString(pizzaCursor.getColumnIndex(DatabaseHelper.PIZZA_EXTRA_TOPPINGS)));
+
+                Cursor souceCursor = this.getSoucesForPizzaWhereUUID(pizzaItem.getUuid());
+                if (souceCursor.moveToFirst()) {
+                    ArrayList<SouceModel> soucesList = new ArrayList<>();
+                    do {
+                        SouceModel souceItem = new SouceModel();
+                        souceItem.setId(souceCursor.getInt(souceCursor.getColumnIndex(DatabaseHelper.SOUCE_ID)));
+                        souceItem.setSouceName(souceCursor.getString(souceCursor.getColumnIndex(DatabaseHelper.SOUCE_NAME)));
+                        souceItem.setSouceQuantity(souceCursor.getInt(souceCursor.getColumnIndex(DatabaseHelper.SOUCE_QUANTITY)));
+
+                        soucesList.add(souceItem);
+                    } while (souceCursor.moveToNext());
+
+                    pizzaItem.setSouceList(soucesList);
+                }
+                pizzaList.add(pizzaItem);
+            } while (pizzaCursor.moveToNext());
+        }
+        pizzaCursor.close();
+        return pizzaList;
     }
 }

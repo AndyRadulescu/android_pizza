@@ -58,9 +58,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         onCreate(db);
     }
-
-    public Cursor getAllPizzaData() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.rawQuery("select * from " + PIZZA_TABLE, null);
-    }
 }

@@ -6,7 +6,7 @@ public class PizzaModel {
     private String uuid;
     private String pizzaName;
     private String pizzaDescription;
-    double pizzaPrice;
+    private double pizzaPrice;
     private String toppings;
     private ArrayList<SouceModel> souceList;
 
@@ -14,12 +14,13 @@ public class PizzaModel {
 
     }
 
-    public PizzaModel(String uuid, String pizzaName, String pizzaDescription, double pizzaPrice, String toppings) {
+    public PizzaModel(String uuid, String pizzaName, String pizzaDescription, double pizzaPrice, String toppings, ArrayList<SouceModel> souceList) {
         this.uuid = uuid;
         this.pizzaName = pizzaName;
         this.pizzaDescription = pizzaDescription;
         this.pizzaPrice = pizzaPrice;
         this.toppings = toppings;
+        this.souceList = souceList;
     }
 
     public String getUuid() {

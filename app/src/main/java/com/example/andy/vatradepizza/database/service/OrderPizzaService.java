@@ -1,6 +1,7 @@
 package com.example.andy.vatradepizza.database.service;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -54,11 +55,11 @@ public class OrderPizzaService {
         String pizzaTableUUID = String.valueOf(UUID.randomUUID());
 
         ContentValues pizzaContent = new ContentValues();
-        pizzaContent.put("pizza_uuid", pizzaTableUUID);
-        pizzaContent.put("pizza_name", pizzaDAO.getPizzaName());
-        pizzaContent.put("pizza_description", pizzaDAO.getPizzaDescription());
-        pizzaContent.put("pizza_price", pizzaDAO.getPizzaPrice());
-        pizzaContent.put("pizza_extra_toppings", extraToppingsString.toString());
+        pizzaContent.put(DatabaseHelper.PIZZA_UUID, pizzaTableUUID);
+        pizzaContent.put(DatabaseHelper.PIZZA_NAME, pizzaDAO.getPizzaName());
+        pizzaContent.put(DatabaseHelper.PIZZA_DESCRIPTION, pizzaDAO.getPizzaDescription());
+        pizzaContent.put(DatabaseHelper.PIZZA_PRICE, pizzaDAO.getPizzaPrice());
+        pizzaContent.put(DatabaseHelper.PIZZA_EXTRA_TOPPINGS, extraToppingsString.toString());
 
         if (!extraSouce.isEmpty()) {
             for (Map.Entry<String, Integer> entry : extraSouce.entrySet()) {
@@ -72,9 +73,9 @@ public class OrderPizzaService {
 
         db.beginTransaction();
         try {
-            db.insert("pizza_table", null, pizzaContent);
+            db.insert(DatabaseHelper.PIZZA_TABLE, null, pizzaContent);
             for (ContentValues content : souceToInsert) {
-                db.insert("souces_table", null, content);
+                db.insert(DatabaseHelper.SOUCES_TABLE, null, content);
             }
             db.setTransactionSuccessful();
         } catch (Exception e) {
@@ -87,9 +88,9 @@ public class OrderPizzaService {
     private ContentValues getSouceContentValues(HashMap<String, Integer> extraSouce, String pizzaUUID, String souceName) {
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("souce_name", souceName);
-        contentValues.put("quantity", extraSouce.get(souceName));
-        contentValues.put("pizza_uuid", pizzaUUID);
+        contentValues.put(DatabaseHelper.SOUCE_NAME, souceName);
+        contentValues.put(DatabaseHelper.SOUCE_QUANTITY, extraSouce.get(souceName));
+        contentValues.put(DatabaseHelper.PIZZA_UUID, pizzaUUID);
 
         return contentValues;
     }
@@ -103,5 +104,16 @@ public class OrderPizzaService {
         } finally {
             db.endTransaction();
         }
+    }
+
+    public Cursor getAllPizzaData() {
+
+        return db.rawQuery("select * from " + DatabaseHelper.PIZZA_TABLE, null);
+    }
+
+    public Cursor getSoucesForPizzaWhereUUID(String uuid) {
+        return db.rawQuery("select " + DatabaseHelper.SOUCE_ID + " , " + DatabaseHelper.SOUCE_NAME
+                + " , " + DatabaseHelper.SOUCE_QUANTITY + " from " + DatabaseHelper.SOUCES_TABLE
+                + " where " + DatabaseHelper.PIZZA_UUID + " =\"" + uuid + "\"", null);
     }
 }

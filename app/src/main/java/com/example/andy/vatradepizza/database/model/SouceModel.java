@@ -11,6 +11,10 @@ public class SouceModel {
         this.souceQuantity = souceQuantity;
     }
 
+    public SouceModel() {
+
+    }
+
     public SouceModel(String souceName, Integer souceQuantity) {
         this.souceName = souceName;
         this.souceQuantity = souceQuantity;

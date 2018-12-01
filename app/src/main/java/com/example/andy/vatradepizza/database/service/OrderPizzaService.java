@@ -11,6 +11,7 @@ import com.example.andy.vatradepizza.database.model.SouceModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
 
@@ -25,15 +26,15 @@ public class OrderPizzaService {
      * Inserts pizza into the database. If there are souces, they will also be inserted.
      */
     public void insertPizzaDatabase(PizzaModel
-                                            pizzaDAO, HashMap<String, Boolean> extraToppings,
+                                            pizzaDAO, HashSet<String> extraToppings,
                                     HashMap<String, Integer> extraSouce) {
 
         ArrayList<ContentValues> souceToInsert = new ArrayList<>();
         ArrayList<String> extraSouceKeys = new ArrayList<>();
         StringBuilder extraToppingsString = new StringBuilder();
 
-        for (Map.Entry<String, Boolean> entry : extraToppings.entrySet()) {
-            extraToppingsString.append(entry.getKey()).append("; ");
+        for (String extraTopping : extraToppings) {
+            extraToppingsString.append(extraTopping).append("; ");
         }
 
         String pizzaTableUUID = String.valueOf(UUID.randomUUID());

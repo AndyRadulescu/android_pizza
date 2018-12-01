@@ -21,6 +21,7 @@ import com.example.andy.vatradepizza.database.model.PizzaModel;
 import com.example.andy.vatradepizza.database.service.OrderPizzaService;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class MenuPizzaActivity extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
     private OrderPizzaService orderPizzaService;
     private TableLayout tlToppings;
 
-    HashMap<String, Boolean> extraToppings;
+    HashSet<String> extraToppings;
     HashMap<String, Integer> extraSouce;
 
     @Override
@@ -77,7 +78,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
 
         pizzaDAO = new PizzaModel();
         tlToppings = findViewById(R.id.tl_toppings);
-        extraToppings = new HashMap<>();
+        extraToppings = new HashSet<>();
         extraSouce = new HashMap<>();
 
         Bundle bundle = getIntent().getExtras();
@@ -123,7 +124,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
         String toppingName = String.valueOf(toppingItem.getText().toString());
         if (checkBox.isChecked()) {
             pizzaDAO.setPizzaPrice(pizzaDAO.getPizzaPrice() + 3);
-            extraToppings.put(toppingName, true);
+            extraToppings.add(toppingName);
         } else {
             pizzaDAO.setPizzaPrice(pizzaDAO.getPizzaPrice() - 3);
             extraToppings.remove(toppingName);

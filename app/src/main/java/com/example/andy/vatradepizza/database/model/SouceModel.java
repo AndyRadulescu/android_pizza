@@ -46,10 +46,6 @@ public class SouceModel {
 
     @Override
     public String toString() {
-        return "SouceModel{" +
-                "id=" + id +
-                ", souceName='" + souceName + '\'' +
-                ", souceQuantity=" + souceQuantity +
-                '}';
+        return souceName + ' ' + souceQuantity;
     }
 }

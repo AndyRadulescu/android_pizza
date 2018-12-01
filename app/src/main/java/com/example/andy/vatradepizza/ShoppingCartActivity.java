@@ -1,22 +1,22 @@
 package com.example.andy.vatradepizza;
 
-import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.andy.vatradepizza.database.helper.DatabaseHelper;
 import com.example.andy.vatradepizza.database.model.PizzaModel;
 import com.example.andy.vatradepizza.database.model.SouceModel;
 import com.example.andy.vatradepizza.database.service.OrderPizzaService;
-import com.example.andy.vatradepizza.menuFragments.MenuItem;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -27,6 +27,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
     OrderPizzaService dbPizzaService;
     ArrayList<PizzaModel> pizzaModels;
     LinearLayout llContainer;
+    TextView tvShoppingCartPrice;
+
+    double totalPriceAmount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +41,15 @@ public class ShoppingCartActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(R.drawable.ic_menu_manage);
 
         llContainer = findViewById(R.id.shopping_cart_item);
+        tvShoppingCartPrice = findViewById(R.id.pizza_shopping_price);
 
         dbHelper = new DatabaseHelper(this);
         dbPizzaService = new OrderPizzaService(dbHelper.getWritableDatabase());
         pizzaModels = new ArrayList<>();
         pizzaModels = dbPizzaService.getAllData();
-        
+
         generateListLayout(llContainer);
+        tvShoppingCartPrice.setText(String.valueOf(totalPriceAmount));
     }
 
     @Override
@@ -55,6 +60,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     private void generateListLayout(LinearLayout llContainer) {
         for (PizzaModel menuItem : pizzaModels) {
+            this.totalPriceAmount += menuItem.getPizzaPrice();
             LinearLayout item = new LinearLayout(this);
             LinearLayout.LayoutParams params0 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.pizza_menu_item));
             params0.setMargins(0, (int) getResources().getDimension(R.dimen.margin_top_pizza_menu_item), 0, 0);
@@ -103,6 +109,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             price.setGravity(Gravity.CENTER);
             price.setTypeface(pizzaName.getTypeface(), Typeface.ITALIC);
 
+
             priceLayout.addView(price);
 
             itemInfoLayout.addView(pizzaName);
@@ -113,6 +120,46 @@ public class ShoppingCartActivity extends AppCompatActivity {
             item.addView(priceLayout);
 
             llContainer.addView(item);
+
+            if (!menuItem.getToppings().equals("") || menuItem.getSouceList() != null) {
+                LinearLayout extraInfo = new LinearLayout(this);
+                extraInfo.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//            extraInfo.setPadding(0, (int) getResources().getDimension(R.dimen.margin_top_pizza_menu_item), 0, 0);
+                extraInfo.setOrientation(LinearLayout.VERTICAL);
+                extraInfo.setGravity(Gravity.CENTER);
+                extraInfo.setBackgroundResource(R.drawable.list_item_shadow);
+
+                if (!menuItem.getToppings().equals("")) {
+                    TextView extraToppings = new TextView(this);
+                    extraToppings.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    extraToppings.setText(menuItem.getToppings());
+                    extraToppings.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                    extraToppings.setGravity(Gravity.CENTER);
+                    extraInfo.addView(extraToppings);
+
+                }
+                if (menuItem.getSouceList() != null) {
+                    TextView extraSouces = new TextView(this);
+                    extraSouces.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    extraSouces.setText(getSouces(menuItem.getSouceList()));
+                    extraSouces.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                    extraSouces.setGravity(Gravity.CENTER);
+                    extraInfo.addView(extraSouces);
+                }
+                llContainer.addView(extraInfo);
+            }
         }
+    }
+
+    private String getSouces(ArrayList<SouceModel> souces) {
+        StringBuilder soucesAux = new StringBuilder();
+        for (SouceModel souce : souces) {
+            soucesAux.append(souce).append(" ");
+        }
+        return soucesAux.toString();
+    }
+
+    public void sendInformation(View view) {
+        Toast.makeText(this, "Sent to the backend", Toast.LENGTH_SHORT).show();
     }
 }

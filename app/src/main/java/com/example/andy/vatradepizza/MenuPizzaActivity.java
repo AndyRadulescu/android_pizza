@@ -117,7 +117,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
         String toppingName = String.valueOf(toppingItem.getText().toString());
         if (checkBox.isChecked()) {
             pizzaDAO.setPizzaPrice(pizzaDAO.getPizzaPrice() + 3);
-            extraToppings.put(toppingName, true);
+            extraToppings.add(toppingName);
         } else {
             pizzaDAO.setPizzaPrice(pizzaDAO.getPizzaPrice() - 3);
             extraToppings.remove(toppingName);

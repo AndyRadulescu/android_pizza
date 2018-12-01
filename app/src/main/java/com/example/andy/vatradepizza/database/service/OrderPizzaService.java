@@ -41,15 +41,15 @@ public class OrderPizzaService {
      * Updates the database.
      */
     public void insertPizzaDatabase(PizzaModel
-                                            pizzaDAO, HashMap<String, Boolean> extraToppings,
+                                            pizzaDAO, HashSet<String> extraToppings,
                                     HashMap<String, Integer> extraSouce) {
 
         ArrayList<ContentValues> souceToInsert = new ArrayList<>();
         ArrayList<String> extraSouceKeys = new ArrayList<>();
         StringBuilder extraToppingsString = new StringBuilder();
 
-        for (Map.Entry<String, Boolean> entry : extraToppings.entrySet()) {
-            extraToppingsString.append(entry.getKey()).append("; ");
+        for (String extraTopping : extraToppings) {
+            extraToppingsString.append(extraTopping).append("; ");
         }
 
         String pizzaTableUUID = String.valueOf(UUID.randomUUID());

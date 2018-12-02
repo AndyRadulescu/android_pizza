@@ -103,7 +103,6 @@ public class MenuPizzaActivity extends AppCompatActivity {
     private void createToppingCheckboxListener() {
         for (int i = 0; i < tlToppings.getChildCount(); i++) {
             TableRow row = (TableRow) tlToppings.getChildAt(i);
-            Log.d("debug----------->", String.valueOf(row.getChildCount()));
 
             for (int j = 1; j < row.getChildCount(); j += 2) {
                 TextView toppingItem = (TextView) row.getChildAt(j - 1);

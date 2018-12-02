@@ -1,6 +1,8 @@
 package com.example.andy.vatradepizza.database.model;
 
-public class SouceModel {
+import java.io.Serializable;
+
+public class SouceModel implements Serializable {
     private int id;
     private String souceName;
     private Integer souceQuantity;

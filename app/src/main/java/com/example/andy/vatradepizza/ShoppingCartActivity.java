@@ -17,6 +17,11 @@ import com.example.andy.vatradepizza.database.helper.DatabaseHelper;
 import com.example.andy.vatradepizza.database.model.PizzaModel;
 import com.example.andy.vatradepizza.database.model.SouceModel;
 import com.example.andy.vatradepizza.database.service.OrderPizzaService;
+import com.example.andy.vatradepizza.rest.SendMenuPost;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -160,6 +165,19 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
 
     public void sendInformation(View view) {
-        Toast.makeText(this, "Sent to the backend", Toast.LENGTH_SHORT).show();
+        JSONObject postData = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(pizzaModels);
+        try {
+            postData.put("pizzas", "ceva");
+            new SendMenuPost().execute("http://192.168.0.102:8000/api/pizza/", postData.toString());
+            dbPizzaService.deleteAllData();
+            Toast.makeText(this, "Sent to the backend", Toast.LENGTH_SHORT).show();
+            finish();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Couldn't send", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -1,8 +1,9 @@
 package com.example.andy.vatradepizza.database.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PizzaModel {
+public class PizzaModel implements Serializable {
     private String uuid;
     private int imageId;
     private String pizzaName;

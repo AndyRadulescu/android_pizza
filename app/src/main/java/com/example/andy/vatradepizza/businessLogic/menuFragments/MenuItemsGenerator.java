@@ -1,4 +1,4 @@
-package com.example.andy.vatradepizza.menuFragments;
+package com.example.andy.vatradepizza.businessLogic.menuFragments;
 
 import com.example.andy.vatradepizza.R;
 

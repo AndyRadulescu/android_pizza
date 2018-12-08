@@ -14,7 +14,6 @@ public class SouceModel implements Serializable {
     }
 
     public SouceModel() {
-
     }
 
     public SouceModel(String souceName, Integer souceQuantity) {

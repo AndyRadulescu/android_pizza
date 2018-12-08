@@ -35,8 +35,67 @@
                 android:ems="10"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Why do we use it?
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+                android:text="Regasesti mai jos toate detaliile necesare
+Websiteul www.vatradepizza.ro colecteaza date cu caracter personal numai cu acordul voluntar
+al Membrului sau al Clientului, in urmatoarele scopuri:
+– validarea, expedierea si facturarea comenzilor catre acesta;
+– rezolvarea anularilor sau a problemelor de orice natura referitoare la o comanda sau un
+contract, la serviciile sau produsele achizitionate de catre acesta;
+– pentru a asigura accesul acestuia la serviciu;
+– trimiterea de newslettere si/sau alerte periodice, in format exclusiv electronic;
+– contactarea acestuia, la cererea sa voluntara;
+– contactarea acestuia in chestiuni de Relatii cu Clientii;
+– scopuri statistice.
+Prin crearea Contului, fiecare Membru sau Client si-a exprimat consimtamantul ca compania
+noastra sa colecteze si sa adminstreze datele acestuia cu caracter personal, in conditiile si cu
+respectarea prevederilor Legii 677/2001.
+Dreptul de acces la date: oricare Membru sau Client are dreptul de a obtine de la compania
+noastra, la cerere si in mod gratuit pentru o solicitare pe an, confirmarea faptului ca datele care il
+privesc sunt sau nu sunt prelucrate de acesta.
+Dreptul de interventie asupra datelor: oricare Membru sau Client are dreptul de a obtine de la
+compania noastra, printr-o cerere scrisa, semnata si datata, in mod gratuit:
+– dupa caz, rectificarea, actualizarea, blocarea sau stergerea datelor a caror prelucrare nu este
+conforma legii, in special a datelor incomplete sau inexacte; unui formular de contact
+– dupa caz, transformarea in date anonime a datelor a caror prelucrare nu este conforma legii;
+1. Informatii personale:  sunteti de acord ca furnizarea serviciilor sau produselor va incepe
+imediat dupa indeplinirea tuturor formalitatilor de inregistrare cerute. Informatiile furnizate
+trebuie sa fie corecte. Optand pentru inregistrare, va obligati sa ne furnizati corect numele, adresa
+si alte informatii utile. Pentru corectarea sau actualizarea acestor informatii, accesati link-ul
+www.vatradepizza.ro
+Prin accesarea contului si utilizarea parolei personale sunteti responsabil pentru toate actiunile
+care decurg din folosirea acestora. www.vatradepizza.ro nu poate fi facuta responsabila pentru
+
+erorile survenite in urma neglijentei utilizatorului privind securitatea si confidentialitatea
+contului si parolei sale.
+2. Securitatea datelor personale: datele dumneavoastra personale vor putea fi utilizate de catre
+www.vatradepizza.ro pentru confirmarea comenzilor, informarea prin e-mail, posta sau alte
+mijloace de comunicare despre actiunile ulterioare, realizarea de rapoarte statistice, etc.
+Datele dumneavoastra personale vor putea fi transmise autoritatilor in drept cu scopul verificarii
+tranzactiilor comerciale sau altor autoritati in drept pentru efectuarea oricaror verificari
+justificate in baza legii.
+Datele furnizate de catre clienti sunt strict confidentiale. www.vatradepizza.ro se angajeaza in
+fata clientilor sai sa nu furnizeze aceste date unor terte persoane sau companii si sa le utilizeze
+strict pentru uzul relatiei de afaceri dintre client si www.vatradepizza.ro
+Acest site foloseste masuri de securitate impotriva pierderii, alterarii sau folosirii gresite a
+informatiilor care se afla in controlul nostru.
+www.vatradepizza.ro se obliga sa respecte drepturile dumneavoastra conferite de Legea
+677/2001, iar la cererea dumneavoastra trimisa la adresa www.vatradepizza.ro, se obliga:
+– sa rectifice, actualizeze, blocheze, stearga sau transforme in date anonime, in mod gratuit,
+datele a caror prelucrare nu este conforma dispozitiilor Legii nr. 677/2001 privind protectia
+persoanelor cu privire la prelucrarea datelor cu caracter personal si libera circulatie a acestor
+date;
+– sa inceteze prelucrarea datelor dumneavoastra personale. www.vatradepizza.ro certifica faptul
+ca va respecta drepturile conferite de Legea nr. 677/2001 privind protectia persoanelor cu privire
+la prelucrarea datelor cu caracter personal si libera circulatie a acestor date, a Legii nr. 365/2002
+privind comertul electronic, precum a Ordonantei nr. 130/2000 privind protectia consumatorilor
+la incheierea si executarea contractelor la distanta cu modificarile ulterioare.
+Printre aceste drepturi se numara (enumerarea neavand un caracter limitativ):
+a. dreptul de a cer www.vatradepizza.ro sa va confirme daca prelucreaza sau nu datele
+dumneavoastra personale, in mod gratuit pentru o solicitare pe an;
+b. dreptul de a cere www.vatradepizza.ro sa rectifice, actualizeze, blocheze sau sterge, in mod
+gratuit, acele date furnizate a caror prelucrare nu este conforma dispozitiilor Legii nr. 677/2001;
+c. dreptul de a cere www.vatradepizza.ro sa inceteze, in mod gratuit, prelucrarea datelor sale
+personale."
                 android:textSize="16sp"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="0dp" />

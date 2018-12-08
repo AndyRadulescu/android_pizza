@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
-    tools:context=".menuFragments.OfferFragment">
+    tools:context=".businessLogic.menuFragments.OfferFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

@@ -18,10 +18,10 @@ import android.view.MenuItem;
 import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
 
-import com.example.andy.vatradepizza.database.helper.DatabaseHelper;
-import com.example.andy.vatradepizza.database.service.OrderPizzaService;
-import com.example.andy.vatradepizza.menuFragments.OfferFragment;
-import com.example.andy.vatradepizza.menuFragments.PizzaFragment;
+import com.example.andy.vatradepizza.persistance.helper.DatabaseHelper;
+import com.example.andy.vatradepizza.persistance.repository.OrderPizzaDAO;
+import com.example.andy.vatradepizza.businessLogic.menuFragments.OfferFragment;
+import com.example.andy.vatradepizza.businessLogic.menuFragments.PizzaFragment;
 
 import java.util.Objects;
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
     FragmentManager manager;
     FragmentTransaction transaction;
 
-    OrderPizzaService orderService;
+    OrderPizzaDAO orderService;
     DatabaseHelper mDbHelper;
 
     @Override
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
         makeOnClickOnTheMenuScroll();
         mDbHelper = new DatabaseHelper(this);
-        orderService = new OrderPizzaService(mDbHelper.getWritableDatabase());
+        orderService = new OrderPizzaDAO(mDbHelper.getWritableDatabase());
         orderService.deleteAllData();
 
         manager = getSupportFragmentManager();

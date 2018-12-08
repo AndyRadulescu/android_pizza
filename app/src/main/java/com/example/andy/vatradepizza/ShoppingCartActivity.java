@@ -13,11 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.andy.vatradepizza.database.helper.DatabaseHelper;
-import com.example.andy.vatradepizza.database.model.PizzaModel;
-import com.example.andy.vatradepizza.database.model.SouceModel;
-import com.example.andy.vatradepizza.database.service.OrderPizzaService;
+import com.example.andy.vatradepizza.dto.PizzaDTO;
+import com.example.andy.vatradepizza.persistance.helper.DatabaseHelper;
+import com.example.andy.vatradepizza.persistance.model.PizzaModel;
+import com.example.andy.vatradepizza.persistance.model.SouceModel;
+import com.example.andy.vatradepizza.persistance.repository.OrderPizzaDAO;
 import com.example.andy.vatradepizza.rest.SendMenuPost;
+import com.example.andy.vatradepizza.service.PizzaService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,8 +31,8 @@ import java.util.Objects;
 public class ShoppingCartActivity extends AppCompatActivity {
 
     DatabaseHelper dbHelper;
-    OrderPizzaService dbPizzaService;
-    ArrayList<PizzaModel> pizzaModels;
+    PizzaService dbPizzaService;
+    ArrayList<PizzaDTO> pizzaDTOs;
     LinearLayout llContainer;
     TextView tvShoppingCartPrice;
 
@@ -49,9 +51,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
         tvShoppingCartPrice = findViewById(R.id.pizza_shopping_price);
 
         dbHelper = new DatabaseHelper(this);
-        dbPizzaService = new OrderPizzaService(dbHelper.getWritableDatabase());
-        pizzaModels = new ArrayList<>();
-        pizzaModels = dbPizzaService.getAllData();
+        dbPizzaService = new PizzaService(new OrderPizzaDAO(dbHelper.getWritableDatabase()));
+        pizzaDTOs = new ArrayList<>();
+        pizzaDTOs = dbPizzaService.getAllPizza();
 
         generateListLayout(llContainer);
         tvShoppingCartPrice.setText(String.valueOf(totalPriceAmount));
@@ -64,7 +66,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
 
     private void generateListLayout(LinearLayout llContainer) {
-        for (PizzaModel menuItem : pizzaModels) {
+        for (PizzaDTO menuItem : pizzaDTOs) {
             this.totalPriceAmount += menuItem.getPizzaPrice();
             LinearLayout item = new LinearLayout(this);
             LinearLayout.LayoutParams params0 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.pizza_menu_item));
@@ -167,11 +169,11 @@ public class ShoppingCartActivity extends AppCompatActivity {
     public void sendInformation(View view) {
         JSONObject postData = new JSONObject();
         JSONArray jsonArray = new JSONArray();
-        jsonArray.put(pizzaModels);
+        jsonArray.put(pizzaDTOs);
         try {
             postData.put("pizzas", "ceva");
             new SendMenuPost().execute("http://192.168.0.102:8000/api/pizza/", postData.toString());
-            dbPizzaService.deleteAllData();
+            dbPizzaService.deleteAllPizzaData();
             Toast.makeText(this, "Sent to the backend", Toast.LENGTH_SHORT).show();
             finish();
 

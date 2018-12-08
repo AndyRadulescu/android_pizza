@@ -1,4 +1,4 @@
-package com.example.andy.vatradepizza.menuFragments;
+package com.example.andy.vatradepizza.businessLogic.menuFragments;
 
 public class MenuItem {
     private int imageId;

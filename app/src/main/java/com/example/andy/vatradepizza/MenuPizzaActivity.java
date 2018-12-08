@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +15,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.andy.vatradepizza.database.helper.DatabaseHelper;
-import com.example.andy.vatradepizza.database.model.PizzaModel;
-import com.example.andy.vatradepizza.database.service.OrderPizzaService;
+import com.example.andy.vatradepizza.persistance.helper.DatabaseHelper;
+import com.example.andy.vatradepizza.persistance.model.PizzaModel;
+import com.example.andy.vatradepizza.persistance.repository.OrderPizzaDAO;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,7 +30,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
     private ImageButton ibWhiteSouceMinus, ibWhiteSoucePlus, ibWhiteSouceSpicyMinus, ibWhiteSouceSpicyPlus, ibRedSouceSpicyMinus, ibRedSouceSpicyPlus, ibRedSouceMinus, ibRedSoucePlus;
     private PizzaModel pizzaDAO;
 
-    private OrderPizzaService orderPizzaService;
+    private OrderPizzaDAO orderPizzaService;
     private TableLayout tlToppings;
 
     HashSet<String> extraToppings;
@@ -74,7 +73,7 @@ public class MenuPizzaActivity extends AppCompatActivity {
         tvRedSouceSpicy.setText("0");
 
         DatabaseHelper mPizzaModel = new DatabaseHelper(this);
-        orderPizzaService = new OrderPizzaService(mPizzaModel.getWritableDatabase());
+        orderPizzaService = new OrderPizzaDAO(mPizzaModel.getWritableDatabase());
 
         pizzaDAO = new PizzaModel();
         tlToppings = findViewById(R.id.tl_toppings);

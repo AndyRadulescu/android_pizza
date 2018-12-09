@@ -168,7 +168,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     public void sendInformation(View view) {
         try {
-            new SendMenuPost().execute("http://192.168.0.102:8000/api/pizza/", dbPizzaService.convertToJson().toString());
+            new SendMenuPost().execute("http://192.168.0.196:8000/api/pizza/", dbPizzaService.convertToJson().toString());
             dbPizzaService.deleteAllPizzaData();
             Toast.makeText(this, "Sent to the backend", Toast.LENGTH_SHORT).show();
             finish();

@@ -44,7 +44,6 @@ public class PizzaService {
                 pizzaObject.put("pizzaDescription", pizza.getPizzaDescription());
                 pizzaObject.put("pizzaPrice", pizza.getPizzaPrice());
                 pizzaObject.put("toppings", pizza.getToppings());
-                pizzaObject.put("toppings", pizza.getUuid());
 
                 JSONArray souceJsonArray = new JSONArray();
                 pizza.getSouceList().forEach(souce -> {

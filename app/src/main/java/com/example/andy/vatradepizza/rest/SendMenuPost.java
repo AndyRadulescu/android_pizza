@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,6 +25,11 @@ public class SendMenuPost extends AsyncTask<String, Void, String> {
 
             httpURLConnection = (HttpURLConnection) new URL(params[0]).openConnection();
             httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+            httpURLConnection.setRequestProperty("Accept", "application/json");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+
             httpURLConnection.setReadTimeout(3000);
             httpURLConnection.setConnectTimeout(3000);
 
@@ -41,7 +47,7 @@ public class SendMenuPost extends AsyncTask<String, Void, String> {
             os.close();
 
 //            DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
-//            wr.writeBytes("PostData=" + params[1]);
+//            wr.writeBytes(params[1]);
 //            wr.flush();
 //            wr.close();
 

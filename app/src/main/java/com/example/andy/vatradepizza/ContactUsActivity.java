@@ -71,7 +71,7 @@ public class ContactUsActivity extends AppCompatActivity {
                 Toast.makeText(this, "Telefon prea scurt!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(this, "Inregistrare cu suces!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Trimis cu suces!", Toast.LENGTH_SHORT).show();
             finish();
         }
     }

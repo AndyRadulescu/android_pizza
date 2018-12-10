@@ -11,12 +11,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.andy.vatradepizza.businessLogic.RegisterFunctionality;
+import com.example.andy.vatradepizza.dto.UserDTO;
+import com.example.andy.vatradepizza.helper.SavedItems;
+import com.example.andy.vatradepizza.rest.AsyncResponse;
+import com.example.andy.vatradepizza.rest.RegisterUserPost;
+import com.example.andy.vatradepizza.service.UserService;
+import com.example.andy.vatradepizza.service.preferances.UserPreference;
 
 import java.util.Objects;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements AsyncResponse {
 
     RegisterFunctionality registerFunctionality;
+    RegisterUserPost registerUserPost;
+    UserPreference userPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayOptions(R.drawable.ic_menu_manage);
 
-
+        registerUserPost = new RegisterUserPost();
+        registerUserPost.setDelegate(this);
         registerFunctionality = new RegisterFunctionality((EditText) findViewById(R.id.et_name),
                 (EditText) findViewById(R.id.et_email), (EditText) findViewById(R.id.et_phone),
                 (EditText) findViewById(R.id.et_password), (EditText) findViewById(R.id.et_confirmPassword));
@@ -76,8 +85,27 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(this, "Telefon prea scurt!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(this, "Inregistrare cu suces!", Toast.LENGTH_SHORT).show();
+
+            UserDTO userDTO = new UserDTO(registerFunctionality.formFields.get(0).getText().toString(),
+                    registerFunctionality.formFields.get(1).getText().toString(),
+                    registerFunctionality.formFields.get(2).getText().toString(),
+                    registerFunctionality.formFields.get(3).getText().toString());
+
+            userPreference = new UserPreference(this, userDTO);
+            userPreference.saveUser();
+            registerUserPost.execute(SavedItems.mainUrl + "/user/", new UserService()
+                    .convertUserDTOtoJsonObject(userPreference.getUser()).toString());
             finish();
+        }
+    }
+
+    @Override
+    public void processFinish(String output) {
+        if (output.equals("error")) {
+            Toast.makeText(this, "error ", Toast.LENGTH_SHORT).show();
+            userPreference.deleteUser();
+        } else {
+            Toast.makeText(this, "Inregistrare cu succes", Toast.LENGTH_SHORT).show();
         }
     }
 }

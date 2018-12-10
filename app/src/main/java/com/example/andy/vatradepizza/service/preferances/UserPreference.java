@@ -18,6 +18,10 @@ public class UserPreference {
         this.user = user;
     }
 
+    public UserPreference(Context context) {
+        this.context = context;
+    }
+
     public void saveUser() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         Log.e("user shit", user.toString());

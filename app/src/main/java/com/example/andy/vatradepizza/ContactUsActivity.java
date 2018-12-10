@@ -78,7 +78,7 @@ public class ContactUsActivity extends AppCompatActivity {
 
     public void onCall(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:0746981103"));
+        intent.setData(Uri.parse("tel:0735747637"));
         startActivity(intent);
     }
 }

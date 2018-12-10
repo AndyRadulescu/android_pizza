@@ -35,8 +35,6 @@ public class UserPreference {
         editor.putString("password", user.getPassword());
 
         editor.apply();
-
-        Toast.makeText(context, "Inregistrat cu success", Toast.LENGTH_SHORT).show();
     }
 
     public UserDTO getUser() {

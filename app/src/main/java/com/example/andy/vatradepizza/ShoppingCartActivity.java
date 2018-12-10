@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.andy.vatradepizza.persistance.helper.DatabaseHelper;
 import com.example.andy.vatradepizza.persistance.model.PizzaModel;
 import com.example.andy.vatradepizza.persistance.model.SouceModel;
 import com.example.andy.vatradepizza.persistance.repository.OrderPizzaDAO;
+import com.example.andy.vatradepizza.rest.AsyncResponse;
 import com.example.andy.vatradepizza.rest.SendMenuPost;
 import com.example.andy.vatradepizza.service.PizzaService;
 
@@ -28,7 +30,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ShoppingCartActivity extends AppCompatActivity {
+public class ShoppingCartActivity extends AppCompatActivity implements AsyncResponse {
 
     DatabaseHelper dbHelper;
     PizzaService dbPizzaService;
@@ -38,6 +40,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     double totalPriceAmount = 0;
 
+    private SendMenuPost menuPost;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayOptions(R.drawable.ic_menu_manage);
+
+        menuPost = new SendMenuPost();
+        menuPost.setDelegate(this);
 
         llContainer = findViewById(R.id.shopping_cart_item);
         tvShoppingCartPrice = findViewById(R.id.pizza_shopping_price);
@@ -131,7 +138,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
             if (!menuItem.getToppings().equals("") || menuItem.getSouceList() != null) {
                 LinearLayout extraInfo = new LinearLayout(this);
                 extraInfo.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//            extraInfo.setPadding(0, (int) getResources().getDimension(R.dimen.margin_top_pizza_menu_item), 0, 0);
                 extraInfo.setOrientation(LinearLayout.VERTICAL);
                 extraInfo.setGravity(Gravity.CENTER);
                 extraInfo.setBackgroundResource(R.drawable.list_item_shadow);
@@ -168,14 +174,23 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     public void sendInformation(View view) {
         try {
-            new SendMenuPost().execute("http://192.168.0.196:8000/api/pizza/", dbPizzaService.convertToJson().toString());
-            dbPizzaService.deleteAllPizzaData();
-            Toast.makeText(this, "Sent to the backend", Toast.LENGTH_SHORT).show();
+            menuPost.execute("http://192.168.0.196:8000/api/pizza/", dbPizzaService.convertToJson().toString());
             finish();
-
         } catch (JSONException e) {
-            e.printStackTrace();
             Toast.makeText(this, "Couldn't send", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void processFinish(String output) {
+        Log.e("TAG", output);
+
+        if (output.equals("error")) {
+            Toast.makeText(this, "Couldn't send", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Sent to the backend", Toast.LENGTH_SHORT).show();
+            dbPizzaService.deleteAllPizzaData();
         }
     }
 }

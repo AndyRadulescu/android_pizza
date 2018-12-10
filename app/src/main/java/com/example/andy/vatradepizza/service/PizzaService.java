@@ -32,7 +32,7 @@ public class PizzaService {
         return this.convertToPizzaDTO(this.pizzaDAO.getAllData());
     }
 
-    public JSONObject convertToJson() throws JSONException {
+    public JSONObject convertPizzaDTOToJsonObject() throws JSONException {
         JSONArray pizzaJsonArray = new JSONArray();
         ArrayList<PizzaDTO> pizzaDTOs = getAllPizza();
         pizzaDTOs.forEach(pizza -> {

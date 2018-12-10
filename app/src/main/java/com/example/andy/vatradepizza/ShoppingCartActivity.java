@@ -16,16 +16,13 @@ import android.widget.Toast;
 
 import com.example.andy.vatradepizza.dto.PizzaDTO;
 import com.example.andy.vatradepizza.persistance.helper.DatabaseHelper;
-import com.example.andy.vatradepizza.persistance.model.PizzaModel;
 import com.example.andy.vatradepizza.persistance.model.SouceModel;
 import com.example.andy.vatradepizza.persistance.repository.OrderPizzaDAO;
 import com.example.andy.vatradepizza.rest.AsyncResponse;
 import com.example.andy.vatradepizza.rest.SendMenuPost;
 import com.example.andy.vatradepizza.service.PizzaService;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -174,7 +171,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements AsyncResp
 
     public void sendInformation(View view) {
         try {
-            menuPost.execute("http://192.168.0.196:8000/api/pizza/", dbPizzaService.convertToJson().toString());
+            menuPost.execute("http://192.168.0.196:8000/api/pizza/", dbPizzaService.convertPizzaDTOToJsonObject().toString());
             finish();
         } catch (JSONException e) {
             Toast.makeText(this, "Couldn't send", Toast.LENGTH_SHORT).show();

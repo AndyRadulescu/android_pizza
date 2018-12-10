@@ -32,7 +32,7 @@ public class PizzaService {
         return this.convertToPizzaDTO(this.pizzaDAO.getAllData());
     }
 
-    public JSONObject convertPizzaDTOToJsonObject() throws JSONException {
+    public JSONObject convertPizzaDTOToJsonObject(String userUuid) throws JSONException {
         JSONArray pizzaJsonArray = new JSONArray();
         ArrayList<PizzaDTO> pizzaDTOs = getAllPizza();
         pizzaDTOs.forEach(pizza -> {
@@ -44,21 +44,25 @@ public class PizzaService {
                 pizzaObject.put("pizzaDescription", pizza.getPizzaDescription());
                 pizzaObject.put("pizzaPrice", pizza.getPizzaPrice());
                 pizzaObject.put("toppings", pizza.getToppings());
+                pizzaObject.put("user_uuid", userUuid);
 
                 JSONArray souceJsonArray = new JSONArray();
-                pizza.getSouceList().forEach(souce -> {
-                    JSONObject souceObject = new JSONObject();
-                    try {
-                        souceObject.put("id", souce.getId());
-                        souceObject.put("souceName", souce.getSouceName());
-                        souceObject.put("souceQuantity", souce.getSouceQuantity());
+                if (pizza.getSouceList() == null) {
+                    pizzaObject.put("souces", null);
+                } else {
+                    pizza.getSouceList().forEach(souce -> {
+                        JSONObject souceObject = new JSONObject();
+                        try {
+                            souceObject.put("id", souce.getId());
+                            souceObject.put("souceName", souce.getSouceName());
+                            souceObject.put("souceQuantity", souce.getSouceQuantity());
 
-                        souceJsonArray.put(souceObject);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                });
-
+                            souceJsonArray.put(souceObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
                 pizzaObject.put("souces", souceJsonArray);
             } catch (JSONException e) {
                 e.printStackTrace();

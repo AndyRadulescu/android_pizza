@@ -22,6 +22,7 @@ import com.example.andy.vatradepizza.persistance.repository.OrderPizzaDAO;
 import com.example.andy.vatradepizza.rest.AsyncResponse;
 import com.example.andy.vatradepizza.rest.SendMenuPost;
 import com.example.andy.vatradepizza.service.PizzaService;
+import com.example.andy.vatradepizza.service.preferances.UserPreference;
 
 import org.json.JSONException;
 
@@ -171,8 +172,16 @@ public class ShoppingCartActivity extends AppCompatActivity implements AsyncResp
     }
 
     public void sendInformation(View view) {
+        UserPreference userPreference = new UserPreference(this);
+        String userUuid = userPreference.getUser().getUuid();
+        Log.e("Useruuid", userUuid);
+        if (userUuid.equals("missing")) {
+            Toast.makeText(this, "Inregistreaza-te intai!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         try {
-            menuPost.execute(SavedItems.mainUrl + "/pizza/", dbPizzaService.convertPizzaDTOToJsonObject().toString());
+            menuPost.execute(SavedItems.mainUrl + "/pizza/", dbPizzaService.convertPizzaDTOToJsonObject(userUuid).toString());
             finish();
         } catch (JSONException e) {
             Toast.makeText(this, "Couldn't send", Toast.LENGTH_SHORT).show();

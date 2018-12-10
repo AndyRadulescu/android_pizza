@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.BufferedWriter;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,6 +13,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class SendMenuPost extends AsyncTask<String, Void, String> {
+    AsyncResponse delegate;
+
+    public AsyncResponse getDelegate() {
+        return delegate;
+    }
+
+    public void setDelegate(AsyncResponse delegate) {
+        this.delegate = delegate;
+    }
 
     @Override
     protected String doInBackground(String... params) {
@@ -46,20 +54,22 @@ public class SendMenuPost extends AsyncTask<String, Void, String> {
             writer.close();
             os.close();
 
-//            DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
-//            wr.writeBytes(params[1]);
-//            wr.flush();
-//            wr.close();
+            int statusCode = httpURLConnection.getResponseCode();
+            if (statusCode == 200) {
+                InputStream in = httpURLConnection.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(in);
 
-            InputStream in = httpURLConnection.getInputStream();
-            InputStreamReader inputStreamReader = new InputStreamReader(in);
-
-            int inputStreamData = inputStreamReader.read();
-            while (inputStreamData != -1) {
-                char current = (char) inputStreamData;
-                inputStreamData = inputStreamReader.read();
-                data.append(current);
+                int inputStreamData = inputStreamReader.read();
+                while (inputStreamData != -1) {
+                    char current = (char) inputStreamData;
+                    inputStreamData = inputStreamReader.read();
+                    data.append(current);
+                }
+            } else {
+                Log.e("TAG", "weird status code");
+                data.append("error");
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -67,13 +77,12 @@ public class SendMenuPost extends AsyncTask<String, Void, String> {
                 httpURLConnection.disconnect();
             }
         }
-
         return data.toString();
     }
 
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        Log.e("TAG", result); // this is expecting a response code to be sent from your server upon receiving the POST data
+        delegate.processFinish(result);
     }
 }

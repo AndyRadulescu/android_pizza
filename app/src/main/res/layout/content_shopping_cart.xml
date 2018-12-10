@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
             android:onClick="sendInformation"
-            android:text="@string/to_cart"
+            android:text="@string/order"
             android:textColor="#fff"
             android:textSize="16sp"
             android:textStyle="bold" />

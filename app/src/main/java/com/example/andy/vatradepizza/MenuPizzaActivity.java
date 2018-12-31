@@ -19,7 +19,8 @@ import com.example.andy.vatradepizza.persistance.helper.DatabaseHelper;
 import com.example.andy.vatradepizza.persistance.model.PizzaModel;
 import com.example.andy.vatradepizza.persistance.repository.OrderPizzaDAO;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class MenuPizzaActivity extends AppCompatActivity {
@@ -29,7 +30,11 @@ public class MenuPizzaActivity extends AppCompatActivity {
     private ImageButton ibWhiteSouceMinus, ibWhiteSoucePlus, ibWhiteSouceSpicyMinus, ibWhiteSouceSpicyPlus, ibRedSouceSpicyMinus, ibRedSouceSpicyPlus, ibRedSouceMinus, ibRedSoucePlus;
     private PizzaModel pizzaDAO;
 
-    private OrderPizzaService orderPizzaService;
+    private OrderPizzaDAO orderPizzaService;
+    private TableLayout tlToppings;
+
+    HashSet<String> extraToppings;
+    HashMap<String, Integer> extraSouce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +72,13 @@ public class MenuPizzaActivity extends AppCompatActivity {
         tvRedSouceSpicy = findViewById(R.id.tf_sos_rosu_picant);
         tvRedSouceSpicy.setText("0");
 
-        mPizzaModel = new PizzaModelHelper(this);
-        mSouceModel = new SouceModelHelper(this);
-        orderPizzaService = new OrderPizzaService();
+        DatabaseHelper mPizzaModel = new DatabaseHelper(this);
+        orderPizzaService = new OrderPizzaDAO(mPizzaModel.getWritableDatabase());
 
-        pizzaInfoArray = new ArrayList<>();
+        pizzaDAO = new PizzaModel();
+        tlToppings = findViewById(R.id.tl_toppings);
+        extraToppings = new HashSet<>();
+        extraSouce = new HashMap<>();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -149,20 +156,24 @@ public class MenuPizzaActivity extends AppCompatActivity {
     public void addToCart(View view) {
         insertIntoTheDatabase();
         Toast.makeText(this, "adaugat in cos", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     /**
      * Calls the insert method for data to be inserted.
      */
     private void insertIntoTheDatabase() {
-        orderPizzaService.insertPizzaDatabase(mPizzaModel.getWritableDatabase(), mSouceModel.getWritableDatabase(), pizzaInfoArray,extraT);
+        orderPizzaService.insertPizzaDatabase(pizzaDAO, extraToppings, extraSouce);
     }
 
-    private void createOnMinusClickListener() {
-        ibWhiteSouceMinus.setOnClickListener(e -> minusButtonClicked(tvWhiteSouce));
-        ibWhiteSouceSpicyMinus.setOnClickListener(e -> minusButtonClicked(tvWhiteSouceSpicy));
-        ibRedSouceMinus.setOnClickListener(e -> minusButtonClicked(tvRedSouce));
-        ibRedSouceSpicyMinus.setOnClickListener(e -> minusButtonClicked(tvRedSouceSpicy));
+    /**
+     * Creates the listener on the + - buttons signs.
+     */
+    private void createOnMinusAndPlusClickListener() {
+        ibWhiteSouceMinus.setOnClickListener(e -> minusButtonClicked(tvWhiteSouce, "sos alb"));
+        ibWhiteSouceSpicyMinus.setOnClickListener(e -> minusButtonClicked(tvWhiteSouceSpicy, "sos alb puicant"));
+        ibRedSouceMinus.setOnClickListener(e -> minusButtonClicked(tvRedSouce, "sos rosu"));
+        ibRedSouceSpicyMinus.setOnClickListener(e -> minusButtonClicked(tvRedSouceSpicy, "sos rosu picant"));
 
         ibWhiteSoucePlus.setOnClickListener(e -> plusButtonClicked(tvWhiteSouce, "sos alb"));
         ibWhiteSouceSpicyPlus.setOnClickListener(e -> plusButtonClicked(tvWhiteSouceSpicy, "sos alb picant"));
